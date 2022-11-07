@@ -14,7 +14,7 @@ var now = new Date();
 //     }
 // })
 
-axios.get("http://106.15.77.207/bangumi")
+axios.get("http://localhost:8088/bangumi")
     .then(function (response) {
         console.log(response)
         var bangumiList = new Vue({
@@ -53,7 +53,7 @@ axios.get("http://106.15.77.207/bangumi")
 
                 getDetailInfo: function(item){
                     var id = item.bangumi_id;
-                    axios.get("http://106.15.77.207/bangumi?id="+id)
+                    axios.get("http://localhost:8088/bangumi?id="+id)
                         .then((response) => {
                             this.bangumiDetail = response.data.result;
                             console.log('get info from server:');

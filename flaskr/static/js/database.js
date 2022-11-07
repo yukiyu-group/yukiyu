@@ -1,6 +1,6 @@
 var databaseApp;
 
-axios.get("http://106.15.77.207/yukiyu/database?name1=tables&name2=bangumi_list").then(initVue);
+axios.get("http://localhost:8088/yukiyu/database?name1=tables&name2=bangumi_list").then(initVue);
 
 function initVue(_initData) {
     _initData = _initData.data;
@@ -30,7 +30,7 @@ function initVue(_initData) {
             changeDatabaseIndex: function (index) {
                 var tableName = this.databaseList[index];
                 var _this = this;
-                axios.get("http://106.15.77.207/yukiyu/database?name=" + tableName)
+                axios.get("http://localhost:8088/yukiyu/database?name=" + tableName)
                     .then((response) => {
                         data = response.data;
                         _this.$set(_this.tableHeaders, tableName, data[tableName + 'Header']);
@@ -103,7 +103,7 @@ function initVue(_initData) {
                     oldInfo: oldInfo,
                     newInfo: newInfo
                 }
-                axios.post("http://106.15.77.207/yukiyu/database", config)
+                axios.post("http://localhost:8088/yukiyu/database", config)
                     .then((response) => {
                         console.log(response);
                         var returnStatu = response.data

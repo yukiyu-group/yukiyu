@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yukiyu —— 雪柚首页</title>
+
+    <!-- 初始化样式文件 -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
+    <!-- 公共样式文件 -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <!-- index样式文件 -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+</head>
+
+<body>
+    
+    <!-- front page start -->
+    <div class="left-band">
+        <div class="left-text">
+            <h2>Yukiyu</h2>
+            <p class="info">综合资讯门户网站</p>
+            <a href="/register" class="btn">注册账号</a>
+            <a href="/login" class="btn">登陆</a>
+        </div>
+        <a href="yukiyu/main"><span class="chevron-left"></span></a>
+    </div>
+    <div class="search">
+        <input type="text" value="输入关键词">
+        <button></button>
+    </div>
+    <!-- front page end -->
+    
+</body>
+
+</html>

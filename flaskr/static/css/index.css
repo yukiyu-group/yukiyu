@@ -1,0 +1,67 @@
+body {
+    overflow: hidden;
+    background: url("../images/background/1597244020382.png") no-repeat top;
+    background-size:100% auto;
+    background-attachment: fixed;
+}
+.left-band {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right,rgba(0,0,0,.5),rgba(0,0,0,.5));
+}
+.left-band .left-text {
+    position: absolute;
+    left: 25%;
+    top: 38%;
+    color: #fff;
+}
+.left-text h2 {
+    font-size: 45px;
+}
+.left-text .info {
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+.left-text .btn:hover {
+    color: black;
+    background-color: #fff;
+}
+.left-band .chevron-left {
+    font-family: 'icomoon';
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.search {
+    position: absolute;
+    top: 45%;
+    right: 10%;
+    width: 470px;
+}
+.search input {
+    float: left;
+    width: 420px;
+    height: 40px;
+    border: 1px solid #00a4ff;
+    border-right: 0;
+    color: #bfbfbf;
+    font-size: 14px;
+    padding-left: 15px;
+}
+.search button {
+    font-family: 'icomoon';
+    float: left;
+    width: 50px;
+    height: 40px;
+    background-color: #00a4ff;
+    color: #fff;
+    border: 0;
+}

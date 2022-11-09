@@ -7,6 +7,7 @@ from db_bangumi_insert import nameComp
 from moegirl import getProduceInfo
 import config
 
+
 def getBangumiList(db):
     cursor = db.cursor()
     sql = 'select bangumi_id, name\
@@ -20,6 +21,7 @@ def getBangumiList(db):
         traceback.print_exc()
     return ()
 
+
 # to judge whether the bangumi is included bangumiInfoList
 def isIncluded(bangumiName, bangumiInfoList):
     for i, item in enumerate(bangumiInfoList):
@@ -27,13 +29,14 @@ def isIncluded(bangumiName, bangumiInfoList):
             return i
     return -1
 
+
 def insertConduct(bangumiItem, conduct, db):
     cursor = db.cursor()
     # sql = "call insertIntoConduct(%d, '%s', '%s');"% \
     #         (*bangumiItem, conduct)
     try:
-        print('start to call: insertIntoConduct : (%d, %s, %s)'%(*bangumiItem, conduct))
-        cursor.callproc('insertIntoConduct',(*bangumiItem, conduct))
+        print('start to call: insertIntoConduct : (%d, %s, %s)' % (*bangumiItem, conduct))
+        cursor.callproc('insertIntoConduct', (*bangumiItem, conduct))
         # cursor.commit()
         db.commit()
         print('call success!')
@@ -41,19 +44,21 @@ def insertConduct(bangumiItem, conduct, db):
         db.rollback()
         traceback.print_exc()
 
+
 def insertCompany(bangumiItem, company, db):
     cursor = db.cursor()
     # sql = "call insertIntoCompany(%d, '%s', '%s');"% \
     #         (*bangumiItem, company)
     try:
-        print('start to call: insertIntoCompany : (%d, %s, %s)'%(*bangumiItem, company))
-        cursor.callproc('insertIntoCompany',(*bangumiItem, company))
+        print('start to call: insertIntoCompany : (%d, %s, %s)' % (*bangumiItem, company))
+        cursor.callproc('insertIntoCompany', (*bangumiItem, company))
         # cursor.commit()
         db.commit()
         print('call success!')
     except:
         db.rollback()
         traceback.print_exc()
+
 
 def insertCast(bangumiItem, castList, db):
     cursor = db.cursor()
@@ -63,7 +68,7 @@ def insertCast(bangumiItem, castList, db):
                 insert into bangumi_cast
                 (bangumi_id, actor)
                 VALUES(%d, '%s')
-              """%(bangumiItem[0], castItem)
+              """ % (bangumiItem[0], castItem)
         try:
             print('start to insert into bangumi_cast:')
             print(sql)
@@ -74,6 +79,7 @@ def insertCast(bangumiItem, castList, db):
             print('insert error!')
             db.rollback()
             traceback.print_exc()
+
 
 def insertInfo(bangumiInfoList, db):
     bangumiList = getBangumiList(db)
@@ -95,10 +101,10 @@ def insert_bangumi_info(db):
 
 if __name__ == '__main__':
     db = pymysql.connect(
-        host=config.host, 
-        port=config.port, 
-        db=config.database, 
-        user=config.user, 
+        host=config.host,
+        port=config.port,
+        db=config.database,
+        user=config.user,
         password=config.password,
         charset='utf8')
     bangumiInfoList = getProduceInfo()

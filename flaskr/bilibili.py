@@ -9,14 +9,15 @@ from PIL import Image
 import io
 import config
 
+
 def url_open(url):
     for i in range(10):
         res = try_open(url)
         if res != None:
             return res
-        print('request url:%s\nfailed!\nretry after 1 sec!'%url)
+        print('request url:%s\nfailed!\nretry after 1 sec!' % url)
         sleep(1)
-    
+
     print('urllib.error.HTTPError: HTTP Error 500: Internal Error')
     return ''.encode('utf-8')
 
@@ -24,7 +25,8 @@ def url_open(url):
 def try_open(url):
     req = urllib.request.Request(url)
     req.add_header(
-        'User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36')
+        'User-Agent',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36')
     try:
         response = urllib.request.urlopen(req)
         html = response.read()
@@ -32,10 +34,12 @@ def try_open(url):
     except:
         return None
 
+
 def api_get(url):
     req = urllib.request.Request(url)
     req.add_header(
-        'User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36')
+        'User-Agent',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36')
     response = urllib.request.urlopen(req)
     return json.loads(response.read())
 
@@ -43,7 +47,7 @@ def api_get(url):
 def get_today_list(apis):
     for i in apis['result']:
         # print(i)
-        if(i['is_today']):
+        if (i['is_today']):
             return i['seasons']
 
 
@@ -54,25 +58,25 @@ def get_bangumi(bangumi_list, need_img):
         for i in bangumi_list:
             if 'pub_index' in i:
                 bangumi.append({'name': i['title'].replace('/', '-').replace("'", " "), 'play_url': i['url'],
-                            'episode': i['pub_index'], 'img': i['square_cover']})
+                                'episode': i['pub_index'], 'img': i['square_cover']})
             elif 'delay_reason' in i:
                 bangumi.append({'name': i['title'].replace('/', '-').replace("'", " "), 'play_url': i['url'],
-                            'episode': i['delay_reason'], 'img': i['square_cover']})
+                                'episode': i['delay_reason'], 'img': i['square_cover']})
             else:
                 bangumi.append({'name': i['title'].replace('/', '-').replace("'", " "), 'play_url': i['url'],
-                            'episode': 'unknown', 'img': i['square_cover']})
+                                'episode': 'unknown', 'img': i['square_cover']})
     else:
         for i in bangumi_list:
             # print(i)
             if 'pub_index' in i:
                 bangumi.append({'name': i['title'].replace('/', '-').replace("'", " "), 'play_url': i['url'],
-                            'episode': i['pub_index'], 'img': ""})
+                                'episode': i['pub_index'], 'img': ""})
             elif 'delay_reason' in i:
                 bangumi.append({'name': i['title'].replace('/', '-').replace("'", " "), 'play_url': i['url'],
-                            'episode': i['delay_reason'], 'img': ""})
+                                'episode': i['delay_reason'], 'img': ""})
             else:
                 bangumi.append({'name': i['title'].replace('/', '-').replace("'", " "), 'play_url': i['url'],
-                            'episode': 'unknown', 'img': ""})
+                                'episode': 'unknown', 'img': ""})
     return bangumi
 
 
@@ -83,19 +87,19 @@ def img_save(bangumi, path):
         img_url = i['img']
         img_name = i['name']
         # img_path = path+'/'+img_name+'.'+img_url.split('.')[-1]
-        img_path = img_name.replace('/', '-')+'.'+img_url.split('.')[-1]
+        img_path = img_name.replace('/', '-') + '.' + img_url.split('.')[-1]
         print(img_url)
         img = url_open(img_url)
         img = io.BytesIO(img)
         pil_img = Image.open(img)
-        img = pil_img.resize((70,70),Image.ANTIALIAS)
+        img = pil_img.resize((70, 70), Image.ANTIALIAS)
         img.save(img_path)
         i['img'] = '../static/upload/bangumi_img/' + img_path
 
     os.chdir(rec_path)
 
 
-def get_all(need_img = False):
+def get_all(need_img=False):
     target_url = 'https://bangumi.bilibili.com/web_api/timeline_global'
     # !You should modify this when the working directory changed
     # img_folder = os.path.abspath('../upload/bangumi_img')

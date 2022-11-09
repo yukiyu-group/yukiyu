@@ -5,12 +5,13 @@ import pymysql
 import traceback
 import config
 
+
 # 作者：杨智麟
 # 该视图为用户的番剧的详情信息查询提供便利
 # 提供番剧的id,名称，制作公司，头图的信息
 def create_view_detail_info(db):
-    cursor=db.cursor()
-    sql1="""
+    cursor = db.cursor()
+    sql1 = """
         drop view if exists detail_info;
         """
     sql2 = """
@@ -32,7 +33,6 @@ def create_view_detail_info(db):
     cursor.close()
 
 
-
 # 触发器
 # 作者：陈家豪
 # 触发器作用为：delete_on_bili: 在bilibili分表上删除某条bangumi信息后，检查其他分表上有无该bangumi信息
@@ -41,8 +41,8 @@ def create_view_detail_info(db):
 # 由于pymysql语法兼容问题，不能通过python执行下列函数创建该触发器，需要通过dbinit.sql脚本创建
 def create_trigger_bangumi(db):
     cursor = db.cursor()
-    #delete_on_bili
-    sql1="""
+    # delete_on_bili
+    sql1 = """
         delimiter //
         drop trigger if exists delete_on_bili//
         create trigger delete_on_bili
@@ -58,8 +58,8 @@ def create_trigger_bangumi(db):
         end; //
         delimiter ;
     """
-    #delete_on_acfun
-    sql2="""
+    # delete_on_acfun
+    sql2 = """
         delimiter //
         drop trigger if exists delete_on_acfun//
         create trigger delete_on_acfun
@@ -75,8 +75,8 @@ def create_trigger_bangumi(db):
         end; //
         delimiter ;
     """
-    #delete_on_AGE
-    sql3="""
+    # delete_on_AGE
+    sql3 = """
         delimiter //
         drop trigger if exists delete_on_AGE//
         create trigger delete_on_AGE
@@ -116,7 +116,6 @@ def create_trigger_bangumi(db):
         traceback.print_exc()
 
 
-
 # 函数
 # 作者：陈家豪
 # 函数作用：ifexist_bili函数作用为，输入bangumi的id，检测其是否在bilibili分表中
@@ -126,7 +125,7 @@ def create_trigger_bangumi(db):
 
 def create_func_ifexist(db):
     cursor = db.cursor()
-    sql1="""
+    sql1 = """
         delimiter $$
         drop function if exists ifexist_bili$$
         create function ifexist_bili (id int) 
@@ -138,8 +137,8 @@ def create_func_ifexist(db):
             return(-1);
         end$$
         delimiter ;
-    """   
-    sql2="""
+    """
+    sql2 = """
         delimiter $$
         drop function if exists ifexist_acfun$$
         create function ifexist_acfun (id int) 
@@ -151,8 +150,8 @@ def create_func_ifexist(db):
             return(-1);
         end$$
         delimiter ;
-    """ 
-    sql3="""
+    """
+    sql3 = """
         delimiter $$
         drop function if exists ifexist_AGE$$
         create function ifexist_AGE (id int) 
@@ -164,7 +163,7 @@ def create_func_ifexist(db):
             return(-1);
         end$$
         delimiter ;
-    """ 
+    """
     try:
         print('start to execute:')
         print(sql1)
@@ -181,19 +180,16 @@ def create_func_ifexist(db):
         traceback.print_exc()
 
 
-    
-
 if __name__ == '__main__':
     db = pymysql.connect(
-        host=config.host, 
-        port=config.port, 
-        db=config.database, 
-        user=config.user, 
+        host=config.host,
+        port=config.port,
+        db=config.database,
+        user=config.user,
         password=config.password,
         charset='utf8')
-    create_view_detail_info(db) #create view
+    create_view_detail_info(db)  # create view
     # create_func_ifexist(db)
     # create_trigger_bangumi(db)  #create tigger， 需要手动创建
 
     db.close()
-    

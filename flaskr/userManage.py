@@ -23,13 +23,10 @@ def createUser(name,password):
         password=config.password,
         charset='utf8')
     cursor = db.cursor()
-    host = '%'
-    sql1 = "create user '%s'@'%s' identified by '%s';"%\
-        (name,host,password)
-    sql11="grant select on yukiyu.* to '%s'@'%s';"%\
-    (name, host)
-   
-    cursor.execute("select user from db")
+
+
+    #查询是否存在
+    cursor.execute("select name from user_list")
     elems = cursor.fetchall()
     res = list(chain.from_iterable(elems))
     print('现有用户：')
@@ -38,33 +35,7 @@ def createUser(name,password):
         print("用户%s已存在"/(name))
         return -5
 
-    try:
-        print('start to execute:')
-        print(sql1)
-        print(sql11)
-        cursor.execute(sql1)
-        cursor.execute(sql11)
-        db.commit()
-        print('create success !')
-    except:
-        returnStatus=0
-        print('create user error!')
-        db.rollback()
-        traceback.print_exc()
-        
-    db.close()
-
-
-    #在yukiyu库中的user插入同样
-    db = pymysql.connect(
-        host=config.host, 
-        port=config.port, 
-        db=config.database, 
-        user=config.user, 
-        password=config.password,
-        charset='utf8')
-    cursor=db.cursor()
-    # data = privilegeOfUser(name)
+    # 插入新用户
     priv = 'YNNN'
     sql2 = """
     insert into user_list(name,password,privilege) 
@@ -82,8 +53,7 @@ def createUser(name,password):
         db.rollback()
         traceback.print_exc()
         returnStatus=0
-
-    cursor.close()
+        
     db.close()
     return returnStatus
 
@@ -93,29 +63,14 @@ def dropUser(name):
     db = pymysql.connect(
         host=config.host, 
         port=config.port, 
-        db=config.database, 
+        db=config.port, 
         user=config.user, 
         password=config.password,
         charset='utf8')
     cursor = db.cursor()
-    host = '%'
-    sql="drop user '%s'@'%s';"%\
-    (name,host)
-    try:
-        print('start to execute:')
-        print(sql)
-        cursor.execute(sql)
-        db.commit()
-        print('drop success !')
-        returnStatus=1
-    except:
-        print('drop user error!')
-        db.rollback()
-        traceback.print_exc()
-        returnStatus =0
 
     sql2 = """
-    delete from yukiyu.user_list
+    delete from user_list
     where name = '%s';
     """%\
     (name)
@@ -173,7 +128,6 @@ def grantSuperUser(name):
         print("success")
         return 1
 
-    host='%'
     db = pymysql.connect(
         host=config.host, 
         port=config.port, 
@@ -182,37 +136,13 @@ def grantSuperUser(name):
         password=config.password,
         charset='utf8')
     cursor = db.cursor()
-    sql="""
-    grant all privileges on yukiyu.* to '%s'@'%s';
-    """%\
-    (name,host)
-    sql2="""
-    grant all privileges on *.* to '%s'@'%s';
-    """%\
-    (name,host)
-    try:
-        print('start to execute:')
-        print(sql)
-        cursor.execute(sql2)
-        db.commit()
-        cursor.execute(sql)
-        db.commit()
-        print('grant success !')
-    except:
-        print('grant error!')
-        db.rollback()
-        traceback.print_exc()
-        return 0
 
-
-    data = privilegeOfUser(name)
-    priv = data['privilege']
     sql2 = """
-    update yukiyu.user_list
-    set privilege = '%s'
+    update user_list
+    set privilege = 'YYYY'
     where name = '%s';
     """%\
-    (priv,name)
+    (name)
     try:
         print('start to execute:')
         print(sql2)
@@ -226,7 +156,7 @@ def grantSuperUser(name):
         return 0
 
     sql3 = """
-        update yukiyu.user_list
+        update user_list
         set if_manager = 'Y'
         where name = '%s';
     """%\
@@ -257,7 +187,6 @@ def grantOrdinartUser(name):
         return 1
     
 
-    host = '%'
     db = pymysql.connect(
         host=config.host, 
         port=config.port, 
@@ -266,26 +195,9 @@ def grantOrdinartUser(name):
         password=config.password,
         charset='utf8')
     cursor = db.cursor()
-    sql1="revoke all privileges on yukiyu.* from '%s'@'%s';"%\
-    (name,host)
-    sql11="grant select on yukiyu.* to '%s'@'%s';"%\
-        (name,host)
-    try:
-        print('start to execute:')
-        print(sql1)
-        print(sql11)
-        cursor.execute(sql1)
-        cursor.execute(sql11)
-        db.commit()
-        print('revoke success !')
-    except:
-        print('revoke error!')
-        db.rollback()
-        traceback.print_exc()
-        return 0
 
     sql2 = """
-    update yukiyu.user_list
+    update user_list
     set privilege = 'YNNN'
     where name = '%s';
     """%\
@@ -303,9 +215,8 @@ def grantOrdinartUser(name):
         return 0
 
 
-
     sql3 = """
-        update yukiyu.user_list
+        update user_list
         set if_manager = 'N'
         where name = '%s';
     """%\
@@ -329,138 +240,6 @@ def grantOrdinartUser(name):
     return returnStatus
 
 
-# 查看指定权限
-def checkOnePriv(name, privilege):
-    s = privilege+'_priv'
-    db = pymysql.connect(
-        host=config.host, 
-        port=config.port, 
-        db=config.database, 
-        user=config.user, 
-        password=config.password,
-        charset='utf8')
-    cursor=db.cursor(pymysql.cursors.DictCursor)
-    sql = """
-        select %s_priv
-        from db
-        where Db = 'yukiyu' and User = '%s';
-    """%\
-    (privilege,name)
-    try:
-        print('start to execute:')
-        print(sql)
-        cursor.execute(sql)
-        data = cursor.fetchall()
-        print('success !')
-    except:
-        print('error!')
-        db.rollback()
-        traceback.print_exc()
-    
-    return data[0][s]
-
-
-#为指定用户增加指定权限
-def addPrivForUser(name,privilege):
-
-    
-    if checkOnePriv(name,privilege)=='Y':
-        print("succsee")
-        return 1
-
-
-    host='%'
-    db = pymysql.connect(
-        host=config.host, 
-        port=config.port, 
-        db=config.database, 
-        user=config.user, 
-        password=config.password,
-        charset='utf8')
-    cursor = db.cursor()
-    sql1 = "grant %s on yukiyu.* to '%s'@'%s';"%\
-        (privilege,name,host)
-    try:
-        print('start to execute:')
-        print(sql1)
-        cursor.execute(sql1)
-        db.commit()
-        print('grant success !')
-    except:
-        print('grant error!')
-        traceback.print_exc()
-
-    data = privilegeOfUser(name)
-    priv = data['privilege']
-    sql2 = """
-    update yukiyu.user_list
-    set privilege = '%s'
-    where name = '%s';
-    """%\
-    (priv,name)
-    try:
-        print('start to execute:')
-        print(sql2)
-        cursor.execute(sql2)
-        db.commit()
-        print('update success !')
-    except:
-        print('update error!')
-        traceback.print_exc()
-    
-    cursor.close()
-    db.close()
-    return 1
-
-#删除指定用户的某权限
-def delPrivForUser(name,privilege):
-
-    if(checkOnePriv(name , privilege)=='N'):
-        print("success")
-        return 1
-
-    host='%'
-    db = pymysql.connect(
-        host=config.host, 
-        port=config.port, 
-        db=config.database, 
-        user=config.user, 
-        password=config.password,
-        charset='utf8')
-    cursor = db.cursor()
-    sql1 = "revoke %s on yukiyu.* from '%s'@'%s';"%\
-        (privilege,name,host)
-    try:
-        print('start to execute:')
-        print(sql1)
-        cursor.execute(sql1)
-        db.commit()
-        print('grant success !')
-    except:
-        print('grant error!')
-        traceback.print_exc()
-    
-    data = privilegeOfUser(name)
-    priv = data['privilege']
-    sql2 = """
-    update yukiyu.user_list
-    set privilege = '%s'
-    where name = '%s';
-    """%\
-    (priv,name)
-    try:
-        print('start to execute:')
-        print(sql2)
-        cursor.execute(sql2)
-        db.commit()
-        print('update success !')
-    except:
-        print('update error!')
-        traceback.print_exc()
-
-    cursor.close()
-    db.close()
-
 
 #查询指定用户权限
 def privilegeOfUser(name):
@@ -473,9 +252,9 @@ def privilegeOfUser(name):
         charset='utf8')
     cursor=db.cursor(pymysql.cursors.DictCursor)
     sql = """
-        select User, select_priv, insert_priv, update_priv, delete_priv, create_priv, drop_priv
-        from db
-        where Db = 'yukiyu' and User = '%s';
+        select privilege
+        from user_list
+        where name = '%s';
     """%\
     (name)
     try:
@@ -488,94 +267,88 @@ def privilegeOfUser(name):
         traceback.print_exc()
     
     data = cursor.fetchall()
+    print(data)
 
-    a=data[0]["select_priv"]
-    b=data[0]["insert_priv"]
-    c=data[0]["update_priv"]
-    d=data[0]["delete_priv"]
-
-    s=a+b+c+d
-
-    dict = {'name': data[0]['User'],'privilege':s}
+    dict = {'name': name,'privilege':data[0]["privilege"]}
 
     print(dict)
     return dict
 
 
 
-#查看所有用户及权限
-def privilegeOfAllUser():
-    db = pymysql.connect(
-        host=config.host, 
-        port=config.port, 
-        db=config.database, 
-        user=config.user, 
-        password=config.password,
-        charset='utf8')
-    cursor=db.cursor(pymysql.cursors.DictCursor)
+# #查看所有用户及权限
+# def privilegeOfAllUser():
+#     db = pymysql.connect(
+#         host=config.host, 
+#         port=config.port, 
+#         db="mysql", 
+#         user=config.user, 
+#         password=config.password,
+#         charset='utf8')
+#     cursor=db.cursor(pymysql.cursors.DictCursor)
 
-    sql = """
-        select User, select_priv, insert_priv, update_priv, delete_priv, create_priv, drop_priv
-        from db
-        where Db = 'yukiyu';
-    """
-    try:
-        print('start to execute:')
-        print(sql)
-        cursor.execute(sql)
-        print('success !')
-    except:
-        print('error!')
-        traceback.print_exc()
+#     sql = """
+#         select User, select_priv, insert_priv, update_priv, delete_priv, create_priv, drop_priv
+#         from db
+#         where Db = 'yukiyu';
+#     """
+#     try:
+#         print('start to execute:')
+#         print(sql)
+#         cursor.execute(sql)
+#         print('success !')
+#     except:
+#         print('error!')
+#         traceback.print_exc()
 
-    data = cursor.fetchall()
-    cursor.close()
-    db.close()
-    list = []
-    for item in data:
-        a=item['select_priv']
-        b=item['insert_priv']
-        c=item['update_priv']
-        d=item['delete_priv']
-        s=a+b+c+d
-        list.append({'name': item['User'],'privilege':s})
+#     data = cursor.fetchall()
+#     cursor.close()
+#     db.close()
+#     list = []
+#     for item in data:
+#         a=item['select_priv']
+#         b=item['insert_priv']
+#         c=item['update_priv']
+#         d=item['delete_priv']
+#         s=a+b+c+d
+#         list.append({'name': item['User'],'privilege':s})
 
 
-    print(list)
-    return list
+#     print(list)
+#     return list
 
-def printAllUser():
-    db = pymysql.connect(
-        host=config.host, 
-        port=config.port, 
-        db=config.database, 
-        user=config.user, 
-        password=config.password,
-        charset='utf8')
-    cursor=db.cursor(pymysql.cursors.DictCursor)
-    sql = "select if_manager, user_id, name, privilege  from yukiyu.user_list;"
-    try:
-        print('start to execute:')
-        print(sql)
-        cursor.execute(sql)
-        print('success !')
-    except:
-        print('error!')
-        traceback.print_exc()
-    data = cursor.fetchall()
-    print(data)
+# def printAllUser():
+#     db = pymysql.connect(
+#         host=config.host, 
+#         port=config.port, 
+#         db="mysql", 
+#         user=config.user, 
+#         password=config.password,
+#         charset='utf8')
+#     cursor=db.cursor(pymysql.cursors.DictCursor)
+#     sql = "select if_manager, user_id, name, privilege  from yukiyu.user_list;"
+#     try:
+#         print('start to execute:')
+#         print(sql)
+#         cursor.execute(sql)
+#         print('success !')
+#     except:
+#         print('error!')
+#         traceback.print_exc()
+#     data = cursor.fetchall()
+#     print(data)
 
 #返回用户密码hash值
 def getPassword(name):
     db = pymysql.connect(
         host=config.host, 
         port=config.port, 
-        db=config.database, 
+        db=config.port, 
         user=config.user, 
         password=config.password,
         charset='utf8')
     cursor=db.cursor(pymysql.cursors.DictCursor)
-    sql = "select password from yukiyu.user_list where name = '%s'"%\
+    sql = "select password from user_list where name = '%s'"%\
         (name)
     try:
         print('start to execute:')
@@ -594,26 +367,32 @@ def getPassword(name):
 
 
 def changePrivilege(name,priv):
-    
-    if priv[0]=='Y':
-        addPrivForUser(name,'select')
-    else:
-        delPrivForUser(name,'select')
 
-    if priv[1]=='Y':
-        addPrivForUser(name,'insert')
-    else:
-        delPrivForUser(name,'insert')
+    db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
+    cursor=db.cursor(pymysql.cursors.DictCursor)
+    sql = """
+    update user_list
+    set privilege = '%s'
+    where name = '%s';
+    """%\
+    (priv,name)
+    try:
+        print('start to execute:')
+        print(sql)
+        cursor.execute(sql)
+        print('success !')
+    except:
+        print('error!')
+        traceback.print_exc()
     
-    if priv[2]=='Y':
-        addPrivForUser(name,'update')
-    else:
-        delPrivForUser(name,'update')
-
-    if priv[3]=='Y':
-        addPrivForUser(name,'delete')
-    else:
-        delPrivForUser(name,'delete')
+    cursor.close()
+    db.close()
     
     return 1
 
@@ -769,7 +548,7 @@ def changeName(oname,nname):
         charset='utf8')
     cursor=db.cursor()
 
-    cursor.execute("select user from db")
+    cursor.execute("select name from user_list")
     elems = cursor.fetchall()
     res = list(chain.from_iterable(elems))
     print('现有用户：')
@@ -778,34 +557,8 @@ def changeName(oname,nname):
         print("用户%s已存在"/(nname))
         return -5
 
-    sql1 = """
-    update db 
-    set user='%s' 
-    where user = '%s';"""%\
-        (nname, oname)
-    sql11 = """
-    update user 
-    set user='%s' 
-    where user = '%s';"""%\
-        (nname, oname)
-    try:
-        print('start to execute:')
-        print(sql1)
-        print(sql11)
-        cursor.execute(sql1)
-        cursor.execute(sql11)
-        db.commit()
-        print('success !')
-        returnStatus = 1
-    except:
-        print('updata user error !')
-        db.rollback()
-        traceback.print_exception()
-        returnStatus = 0
-        return returnStatus
-
     sql2="""
-    update yukiyu.user_list 
+    update user_list 
     set name = '%s'
     where name = '%s';"""%\
         (nname,oname)
@@ -827,21 +580,11 @@ def changeName(oname,nname):
 
 # 用户改管理权限
 def changeIfManage(name,nIfMnage):
-    db = pymysql.connect(
-        host=config.host, 
-        port=config.port, 
-        db=config.database, 
-        user=config.user, 
-        password=config.password,
-        charset='utf8')
-    cursor=db.cursor()
 
     if(nIfMnage=='Y'):
         returnStatus = grantSuperUser(name)
     else:
         returnStatus = grantOrdinartUser(name)
-
-    
     return returnStatus
 
 #用户改密码
@@ -854,25 +597,6 @@ def changePassword(name,password):
         password=config.password,
         charset='utf8')
     cursor = db.cursor()
-
-    sql = "ALTER USER '%s'@'%s' IDENTIFIED WITH mysql_native_password BY '%s';"%\
-        (name,'%',password)
-    
-    try:
-        print('start to execute:')
-        print(sql)
-        cursor.execute(sql)
-        db.commit()
-        print('success !')
-        returnStatus = 1
-    except:
-        print('updata error !')
-        db.rollback()
-        traceback.print_exc()
-        returnStatus = 0
-
-    if(returnStatus==0):
-        return returnStatus
 
     password_hash = generate_password_hash(password)
     sql2 = """

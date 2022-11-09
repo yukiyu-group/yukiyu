@@ -129,6 +129,10 @@ def create_app(test_config=None):
         return current_app.send_static_file('images/favicon.ico')
 
 
+    @app.route('/Swehominmind/')
+    def show_detail():
+        return render_template('details.html', title='辉夜大小姐想让我告白', contain='一些介绍')
+
     return app
 
 
@@ -136,7 +140,7 @@ def create_app(test_config=None):
 if __name__ == '__main__':
     app = create_app()
     app.run(
-        host='0.0.0.0',
+        host='127.0.0.1',
         port=8088,
         debug=True
     )

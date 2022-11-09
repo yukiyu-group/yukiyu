@@ -122,10 +122,10 @@ def get_last_week():
     print(bangumi_list)
 
     # insert AGE into bilibili
-    bangumi_list = get_target_week('AGE')
-    merge_list(result['result'], bangumi_list, 'AGE')
-    print('AGE result')
-    print(bangumi_list)
+    # bangumi_list = get_target_week('AGE')
+    # merge_list(result['result'], bangumi_list, 'AGE')
+    # print('AGE result')
+    # print(bangumi_list)
 
     print('final result')
     print(result)

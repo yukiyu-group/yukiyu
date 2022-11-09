@@ -1,13 +1,13 @@
-host = "106.15.77.207"
+host = "139.196.227.217"
 port = 3306
 database = "yukiyu"
 user="jhchen"
-password="123456"
+password="118466gHs118466"
 
 configInfo = {
-    "host" : "106.15.77.207",
+    "host" : "139.196.227.217",
     "port" : 3306,
     "database" : "yukiyu",
     "user":"jhchen",
-    "password":"123456"
+    "password":"118466gHs118466"
 }

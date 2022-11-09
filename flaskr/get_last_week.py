@@ -2,13 +2,21 @@
 # 该模块提供了返回最近一周番剧信息的函数
 # 为前端数据展示API提供调用
 
+import imp
 import pymysql
 import datetime
 from databaseCURD import signColumnsShuffle
+import config
 
 # via veiw to get the detail info of a target bangumi
 def get_detail_info(id='4100450'):
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
     print('get bangumi detail info: ')
     cursor = db.cursor()
     sql = """
@@ -42,7 +50,13 @@ def get_detail_info(id='4100450'):
 def get_list_of_date(day, target_table):
     # date = day.strftime("%Y-%m-%d")
     date = day
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
     cursor = db.cursor(pymysql.cursors.DictCursor)  #返回值为字典格式
     sql1 = """
         select  bangumi_id, name, img, play_url, episode
@@ -108,10 +122,10 @@ def get_last_week():
     print(bangumi_list)
 
     # insert AGE into bilibili
-    bangumi_list = get_target_week('AGE')
-    merge_list(result['result'], bangumi_list, 'AGE')
-    print('AGE result')
-    print(bangumi_list)
+    # bangumi_list = get_target_week('AGE')
+    # merge_list(result['result'], bangumi_list, 'AGE')
+    # print('AGE result')
+    # print(bangumi_list)
 
     print('final result')
     print(result)

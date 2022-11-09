@@ -6,6 +6,7 @@ import traceback
 from viewAndTrigger_init import create_view_detail_info
 from db_bangumi_insert import insert_bangumi
 from dbBangumiInfoInsert import insert_bangumi_info
+import config
 
 #bangumi_list总表
 def create_table_bangumi_list(db):
@@ -199,7 +200,13 @@ def initProduceTbale(db):
     create_table_cast(db)
 
 if __name__ == '__main__':
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
     # create_table_bangumi_list(db)
     # create_table_bangumi(db,'bilibili')
     # create_table_bangumi(db,"acfun")

@@ -7,7 +7,7 @@ import os
 import json
 from PIL import Image
 import io
-
+import config
 
 def url_open(url):
     for i in range(10):

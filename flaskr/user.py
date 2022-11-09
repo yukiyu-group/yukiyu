@@ -10,8 +10,15 @@ from flask_login import UserMixin  # 引入用户基类
 from werkzeug.security import check_password_hash
 from databaseCURD import getUserList
 from userManage import createUser
+import config
 
-db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
 
 
 def create_user(user_name, password):

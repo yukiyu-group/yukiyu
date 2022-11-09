@@ -5,6 +5,7 @@ import traceback
 import pymysql
 from db_bangumi_insert import nameComp
 from moegirl import getProduceInfo
+import config
 
 def getBangumiList(db):
     cursor = db.cursor()
@@ -93,6 +94,12 @@ def insert_bangumi_info(db):
 
 
 if __name__ == '__main__':
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
     bangumiInfoList = getProduceInfo()
     insertInfo(bangumiInfoList, db)

@@ -2,6 +2,7 @@
 
 import pymysql
 import traceback
+import config
 
 
 # 存储过程

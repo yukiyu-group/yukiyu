@@ -5,6 +5,7 @@
 from time import sleep
 import urllib.request
 import re
+import config
 
 def url_open(url):
     for i in range(10):

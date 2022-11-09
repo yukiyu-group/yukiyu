@@ -1,12 +1,14 @@
 # A站的爬虫模块
 # 从A站中爬取新番数据
 
+import imp
 from time import sleep
 import urllib.request
 import os
 import json
 from PIL import Image
 import io
+import config
 
 
 def url_open(url):

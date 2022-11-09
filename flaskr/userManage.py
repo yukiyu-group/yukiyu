@@ -9,6 +9,7 @@ import traceback
 from pymysql import cursors
 from werkzeug.security import check_password_hash, generate_password_hash
 from itertools import chain
+import config
 
 
 #默认创建普通用户，授权select

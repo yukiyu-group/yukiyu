@@ -2,7 +2,7 @@ import urllib.request
 import json
 import datetime
 from time import sleep
-
+import config
 def url_open(url):
     for i in range(10):
         res = try_open(url)

@@ -5,7 +5,7 @@
 import traceback
 import pymysql
 from userManage import commmitChangeToUserlist, privilegeOfUser, ifManage
-
+import config
 
 global db
 
@@ -55,7 +55,13 @@ def changeProcess(oldInfo, newInfo, targetTable, user = None):
     userPrivilege = privilegeOfUser(user).get('privilege')
 
     global db
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
     if oldInfo == None and newInfo == None or not checkValibleTableName(targetTable, user):
         print('error ! invalid change!')
         print('oldInfo:', oldInfo)
@@ -164,7 +170,13 @@ def getTableNames(user):
 # get all tables, including table names and data
 def getDatabase(target, user):
     global db
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
     print('get url args:')
     print(target)
     res = {}
@@ -289,7 +301,13 @@ def deleteItem(oldInfo, targetTable):
     return returnStatus
         
 def getUserList():
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
     cursor = db.cursor()
     sql = 'select name, password, user_id from user_list'
     cursor.execute(sql)

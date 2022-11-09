@@ -3,6 +3,7 @@
 
 import pymysql
 import traceback
+import config
 
 # 作者：杨智麟
 # 该视图为用户的番剧的详情信息查询提供便利
@@ -183,7 +184,13 @@ def create_func_ifexist(db):
     
 
 if __name__ == '__main__':
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
     create_view_detail_info(db) #create view
     # create_func_ifexist(db)
     # create_trigger_bangumi(db)  #create tigger， 需要手动创建

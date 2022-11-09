@@ -2,6 +2,7 @@
 import bilibili
 import AcFun
 import AGE
+import config
 
 
 def get_bili_info(need_img):

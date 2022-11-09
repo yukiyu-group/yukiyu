@@ -16,7 +16,7 @@ cd flaskr/
 python __init__.py
 ```
 
-访问 127.0.0.1:8080/yukiyu 即可
+访问 [localhost:8080/yukiyu](http://localhost:8088/yukiyu) 即可
 
 
 ## 项目背景

@@ -120,10 +120,10 @@ def get_last_week():
     print('bilibili result')
     print(result)
     # get acfun below
-    bangumi_list = get_target_week('acfun')
+    bangumi_list = get_target_week('tencent')
     # insert acfun into bilibili
-    merge_list(result['result'], bangumi_list, 'acfun')
-    print('acfun result')
+    merge_list(result['result'], bangumi_list, 'tencent')
+    print('tencent result')
     print(bangumi_list)
 
     # insert AGE into bilibili
@@ -139,5 +139,6 @@ def get_last_week():
 
 if __name__ == '__main__':
     # data = get_last_week()
+    bangumi_list = get_target_week('tencent')
     data = get_detail_info()
-    print(data)
+    print(bangumi_list)

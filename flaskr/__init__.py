@@ -54,6 +54,12 @@ def create_app(test_config=None):
         print('current user: ', userame)
         return render_template('main.html', user=userame)
 
+    # rank tool
+    @app.route('/yukiyu/main/rank')
+    def rank_tool():
+        print('rank tool called')
+        return render_template('rank_tool.html')
+
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'GET':

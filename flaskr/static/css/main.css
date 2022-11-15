@@ -294,3 +294,16 @@ body {
     /* background-color: red; */
     opacity: 0.5
 }
+
+#cr-content {
+    font-size: 23px;
+    line-height: 1.54;
+    color: #333;
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+#rank-list {
+    padding: 2px;
+    margin: 2px;
+}

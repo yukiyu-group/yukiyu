@@ -10,8 +10,10 @@ import get_last_week
 from get_last_week import get_last_week, get_detail_info
 from user import User, get_user, create_user
 from databaseCURD import getDatabase, commitChangeToDatabase
-from comment import comment_model
+#from comment import comment_model
 import json
+
+import getDetailInfo
 
 def create_app(test_config=None):
     # create and configure the app
@@ -137,6 +139,17 @@ def create_app(test_config=None):
     @app.route('/rank/')
     def show_rank():
         return render_template('rank.html')
+
+    @app.route('/detailInfo/')
+    def detailInfo():
+        bangumiId = request.args['id']
+        detailInfo = getDetailInfo.getDetailById(bangumiId)
+        return detailInfo
+
+    app.config['JSON_AS_ASCII'] = False
+    app.config['JSONIFY_MIMETYPE'] = "application/json;charset=utf-8"  # 指定浏览器渲染的文件类型，和解码格式；
+
+    
 
     return app
 

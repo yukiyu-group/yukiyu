@@ -119,6 +119,9 @@ def ifManage(name):
         print('error!')
         traceback.print_exc()
 
+    cursor.close()
+    db.close()
+
     return data[0]['if_manager']
 
 

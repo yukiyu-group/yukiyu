@@ -10,6 +10,7 @@ import get_last_week
 from get_last_week import get_last_week, get_detail_info
 from user import User, get_user, create_user
 from databaseCURD import getDatabase, commitChangeToDatabase
+from comment import comment_model
 import json
 
 

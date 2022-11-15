@@ -26,7 +26,7 @@
               <h2>排行榜示例</h2>
               <div id="week-choose">
                   <ul>
-                      <li v-for="(item, index) in weeks" :class="{list_on:index==weekMark}" @click="changeWeekMark(index)">{{item}}</li>
+                      <li v-for="(item, index) in weeks" :class="{list_on:index==weekMark}" @click="changeWeekMark(index)">分类示例{{index}}</li>
                   </ul>
               </div>
           </header>

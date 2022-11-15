@@ -10,8 +10,9 @@ import get_last_week
 from get_last_week import get_last_week, get_detail_info
 from user import User, get_user, create_user
 from databaseCURD import getDatabase, commitChangeToDatabase
-from comment import comment_model
+
 import json
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -21,7 +22,7 @@ def create_app(test_config=None):
     login_manager = LoginManager()  # 实例化登录管理对象
     login_manager.init_app(app)  # 初始化应用
     login_manager.login_view = 'login'  # 设置用户登录视图函数 endpoint
-    
+
     @login_manager.user_loader  # 定义获取登录用户的方法
     def load_user(user_id):
         return User.get(user_id)
@@ -51,12 +52,12 @@ def create_app(test_config=None):
         if hasattr(current_user, 'username'):
             userame = current_user.username
         print('current user: ', userame)
-        return render_template('main.html', user = userame)
+        return render_template('main.html', user=userame)
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'GET':
-            return render_template('login.html', target = '/login', way = '登陆')
+            return render_template('login.html', target='/login', way='登陆')
         if request.method == 'POST':
             user_name = request.form.get('username')
             password = request.form.get('password')
@@ -73,16 +74,15 @@ def create_app(test_config=None):
 
             if emsg is None:
                 return redirect(request.args.get('next') or '/yukiyu/main')
- 
+
             else:
                 flash(emsg)
                 return redirect('/login')
 
-    
     @app.route('/register', methods=['GET', 'POST'])
     def register():
         if request.method == 'GET':
-            return render_template('login.html', target = '/register', way = '注册')
+            return render_template('login.html', target='/register', way='注册')
         else:
             user_name = request.form.get('username')
             password = request.form.get('password')
@@ -90,7 +90,6 @@ def create_app(test_config=None):
             flash('创建用户成功，请登陆')
             return redirect('/login')
 
-    
     @app.route('/logout')
     def logout():
         logout_user()
@@ -105,14 +104,13 @@ def create_app(test_config=None):
                 res = getDatabase(agrs, getattr(current_user, 'username', None))
                 return res
             return render_template('database.html')
-        else:           
+        else:
             res = json.loads(request.data)
             print('get data:')
             print(res)
-            returnStatus = commitChangeToDatabase(res['oldInfo'], res['newInfo'], res['tableName'], getattr(current_user, 'username', None))
+            returnStatus = commitChangeToDatabase(res['oldInfo'], res['newInfo'], res['tableName'],
+                                                  getattr(current_user, 'username', None))
             return returnStatus
-
-
 
     @app.route('/bangumi')
     def get_bangumi_info():
@@ -129,7 +127,6 @@ def create_app(test_config=None):
         print('favicon fun called!')
         return current_app.send_static_file('images/favicon.ico')
 
-
     @app.route('/Swehominmind/')
     def show_detail():
         return render_template('details.html', title='辉夜大小姐想让我告白', contain='一些介绍')
@@ -139,7 +136,6 @@ def create_app(test_config=None):
         return render_template('rank.html')
 
     return app
-
 
 
 if __name__ == '__main__':

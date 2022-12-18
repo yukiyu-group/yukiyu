@@ -149,10 +149,13 @@ def create_app(test_config=None):
         detailInfo = getDetailInfo.getDetailById(bangumiId)
         return detailInfo
 
+    @app.route('/profile/')
+    def show_profile():
+        username = request.args.get("user", default="未登录", type=str)
+        return render_template('profile.html', user=username)
+
     app.config['JSON_AS_ASCII'] = False
     app.config['JSONIFY_MIMETYPE'] = "application/json;charset=utf-8"  # 指定浏览器渲染的文件类型，和解码格式；
-
-    
 
     return app
 

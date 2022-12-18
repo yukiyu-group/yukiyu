@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
     <!-- main样式文件 -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+
+
 </head>
 <body>
 
@@ -31,7 +33,7 @@
                 <li><a href="#">番剧</a></li>
                 {% if user %}
                     <li id="user-menu">
-                        <a href="#">{{user}}</a>
+                        <a href="/profile?user={{ user }}">{{user}}</a>
                         <div class="user-info">
                             <p>欢迎您：{{user}}</p>
                             <a class="logout" href="/logout">退出登录</a>
@@ -120,6 +122,5 @@
     <!-- js 动态元素 -->
     <!-- <script src="{{url_for('static', filename='js/index_dynamic.js')}}"></script> -->
     <script src="../static/js/index_dynamic.js"></script>
-
 </body>
 </html>

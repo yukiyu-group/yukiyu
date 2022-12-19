@@ -34,9 +34,9 @@ axios.get("http://localhost:8088/bangumi")
                     cast:['aaaa', 'bbbb', 'cccc', 'dddd', 'eeeeeee', 'fff', 'ggggggggggggg', 'hhh']
                 },
                 rank_details: [{
-                    rank_id: '1',
-                    rank_img: '火花',
-                    rank_heats: '1.1w'
+                    title: "xx",
+                    play_url: "bili.com",
+                    heat: "1.3w"
                 }]
             },
             methods: {

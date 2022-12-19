@@ -3,7 +3,7 @@
 # update for fix
 
 import os
-from flask import Flask, render_template, request, redirect, session, flash, send_from_directory
+from flask import Flask, jsonify, render_template, request, redirect, session, flash, send_from_directory
 from flask.globals import current_app
 from flask_login import LoginManager, login_user, current_user, login_required, logout_user
 import get_last_week
@@ -12,6 +12,8 @@ from user import User, get_user, create_user
 from databaseCURD import getDatabase, commitChangeToDatabase
 
 import getDetailInfo
+import rankList
+from rankList import getRankList
 
 import json
 from comment import comment_model
@@ -135,6 +137,11 @@ def create_app(test_config=None):
             bangumi = get_last_week()
         return bangumi
 
+    @app.route('/api/rank')
+    def get_rank_list():
+        data = getRankList()
+        return jsonify(data)
+
     @app.route('/favicon.ico')
     def favicon():
         print('favicon fun called!')
@@ -178,7 +185,8 @@ def create_app(test_config=None):
 
     @app.route('/rank/')
     def show_rank():
-        return render_template('rank.html')
+        data = jsonify(getRankList())
+        return render_template('rank.html', rank_details=data)
 
     @app.route('/detailInfo/')
     def detailInfo():

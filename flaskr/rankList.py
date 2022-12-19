@@ -10,8 +10,8 @@ def getRankList():
         password=config.password,
         charset='utf8')
     sql = """
-        select bangumi_detail.title,play_url,heat 
-        from bangumi_detail inner join bilibili on bangumi_detail.bangumi_id = bilibili.bangumi_id
+        select bangumi_detail.title,play_url,heat,img
+        from bangumi_detail inner join bangumi_list on bangumi_detail.bangumi_id=bangumi_list.bangumi_id  inner join bilibili on bangumi_detail.bangumi_id = bilibili.bangumi_id
         where heat > 0
         order by heat DESC;
     """
@@ -23,6 +23,8 @@ def getRankList():
         data = cursor.fetchall()
         print('success !')
         print(data)
+        print(type(data))
+        print(type(data[0]))
     except:
         print('error!')
         traceback.print_exc()

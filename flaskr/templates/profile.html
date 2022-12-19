@@ -1,6 +1,17 @@
 <!doctype html>
 <html>
+    <!-- 初始化样式文件 -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
+    <!-- 公共样式文件 -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
 
+	<link rel="stylesheet" href="{{url_for('static', filename='css/comment.css')}}">
+<header class="page-head">
+	<ul id="header_list">
+		<li><a href="/yukiyu/main">首页</a></li>
+		<li><a href="#">番剧</a></li>
+	</ul>
+</header>
 	<head>
 		<meta charset="utf-8">
 		<title>个人主页</title>
@@ -138,7 +149,7 @@
 
 	<body>
 		<div class="content">
-			<img src="https://i0.hdslb.com/bfs/face/f42a71b88dae2647352e487339c09db9f004c690.jpg" alt="">
+			<img src="{{url_for('static',filename='images/akalin.jpg')}}" alt="">
 			<div class="content_r clearfix">
 				<div class="content_l clearfix">
 					<h2>Hi~ 我是{{ user }}， Welcome here ！</h2>
@@ -146,26 +157,26 @@
 
 					<p class="cc">关注番剧列表</p>
 					<div class="link">
-						<a href="#" class="dodgerblue" target="_blank">番剧1</a>
-						<a href="https://bilibili.com/" class="deeppink_1" target="_blank">番剧2</a>
-						<a href="https://weibo.com/" class="magenta" target="_blank">番剧3</a>
-						<a href="https://music.163.com//" class="orange" target="_blank">番剧4</a>
-						<img src="http://i0.hdslb.com/bfs/bangumi/image/03e55ba8e4b1eed9c2197f9a34ca8acddaa0cdb6.png" alt="图片1">
-						<img src="https://i0.hdslb.com/bfs/bangumi/image/f50a08cc1562f2c1e933b656c00db3fcafd110e9.png" alt="图片2">
-						<img src="https://pics4.baidu.com/feed/377adab44aed2e73524dcca33834588186d6fa5e.jpeg" alt="图片3">
-						<img src="https://i0.hdslb.com/bfs/bangumi/image/f641f81aa1933d73c91d5ef76b525acbcdbcf3e7.png" alt="图片4">
+						<a href="/yukiyu/comment/2262952" class="dodgerblue" target="_blank">史上最强大魔王转生为村民甲</a>
+						<a href="https://bilibili.com/" class="deeppink_1" target="_blank">间谍过家家</a>
+						<a href="https://weibo.com/" class="magenta" target="_blank">奇幻世界舅舅</a>
+						<a href="https://music.163.com//" class="orange" target="_blank">青蓝监狱</a>
+						<img src="{{url_for('static',filename='images/pic_test.png')}}" alt="图片1">
+						<img src="{{url_for('static',filename='images/7.jpg')}}" alt="图片2">
+						<img src="{{url_for('static',filename='images/6.jpg')}}" alt="图片3">
+						<img src="{{url_for('static',filename='images/5.jpg')}}" alt="图片4">
 					</div>
 
 					<p class="cc">收藏番剧列表</p>
 					<div class="link">
-						<a href="#" class="dodgerblue" target="_blank">番剧1</a>
-						<a href="https://bilibili.com/" class="deeppink_1" target="_blank">番剧2</a>
-						<a href="https://weibo.com/" class="magenta" target="_blank">番剧3</a>
-						<a href="https://music.163.com//" class="orange" target="_blank">番剧4</a>
-						<img src="https://i0.hdslb.com/bfs/article/e40914f8104eb7ca2d40527bd9144cd5c600ed8b.jpg" alt="图片1">
-						<img src="https://i0.hdslb.com/bfs/bangumi/image/ffe6ebdf6770e7975bf830bee73a03c79e81b690.png" alt="图片2">
-						<img src="https://i0.hdslb.com/bfs/bangumi/image/81c9dc929e6071a2d42f1b5a207bbcef4a1aead7.png" alt="图片3">
-						<img src="https://i0.hdslb.com/bfs/bangumi/46a9b18f6f7b08e30a781cf1b44594f1fb2c9e64.jpg" alt="图片4">
+						<a href="#" class="dodgerblue" target="_blank">忍者一时</a>
+						<a href="https://bilibili.com/" class="deeppink_1" target="_blank">书虫公主</a>
+						<a href="https://weibo.com/" class="magenta" target="_blank">完美世界</a>
+						<a href="https://music.163.com//" class="orange" target="_blank">一人之下 第5季</a>
+						<img src="{{url_for('static',filename='images/4.jpg')}}" alt="图片1">
+						<img src="{{url_for('static',filename='images/3.jpg')}}" alt="图片2">
+						<img src="{{url_for('static',filename='images/2.jpg')}}" alt="图片3">
+						<img src="{{url_for('static',filename='images/1.jpg')}}" alt="图片4">
 					</div>
 				</div>
 			</div>

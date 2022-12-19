@@ -50,18 +50,18 @@
         <!-- sidebar start-->
         <div id="side-menu">
             <div id="side-menu-inner">
-                <h1 style="text-align:center;color:blue">排行榜示例</h2>
-                <div class="cr-content">
+                <!-- <h1 style="text-align:center;color:blue">排行榜示例</h2> -->
+                <!-- <div class="cr-content">
                     <ol style="font-size: 14px;">
                         <li class="rank-list" style="list-style:none;">1. 我家师傅没有尾巴</li>
                         <li style="display:inline;">2. 勇者斗恶龙 达伊的大冒险</li>
                         <li>3. 博人传 火影忍者新时代</li>
                     </ol>
-                </div>
+                </div> -->
                 {% raw %}
                 <div id="rankList" class="" v-cloak>
                     <header>
-                        <h2>排行榜</h2>
+                        <h1 style="text-align:center;color:blue">排行榜</h2>
                         <!-- <div id="week-choose">
                             <ul>
                                 <li v-for="(item, index) in weeks" :class="{list_on:index==weekMark}" @click="changeWeekMark(index)">{{item}}</li>

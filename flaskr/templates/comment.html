@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雪柚 —— 评论区demo</title>
+    <meta name="referrer" content="no-referrer">
+
+    <!-- <link rel="stylesheet" href="../static/css/base.css">
+
+    <link rel="stylesheet" href="../static/css/common.css">
+
+    <link rel="stylesheet" href="../static/css/database.css"> -->
+
+    <!-- 初始化样式文件 -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
+    <!-- 公共样式文件 -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    
+
+    <!-- comment样式文件-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/comment.css')}}">
+    
+    <link rel="stylesheet" href="{{url_for('static', filename='css/like.css')}}">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/details.css')}}">>
+
+</head>
+
+<body>
+    <!-- main-page start -->
+
+    <div id="main-page">
+        <!-- header start -->
+        <header class="page-head">
+            <ul id="header_list">
+                <li><a href="/yukiyu/main">首页</a></li>
+                <li><a href="#">番剧</a></li>
+            </ul>
+        </header>
+
+    <div id="app" class="media-detail-wrp">
+        <div class="media-info-wrp">
+            <div class="media-info-content">
+                <div class="media-info-inner clearfix">
+                    <div class="media-preview">
+                        <div class="common-lazy-img">
+                            <img alt="强风吹拂" src="{{url_for('static',filename='images/pic_test.png')}}" lazy="loaded">
+                        </div> <!---->
+                    </div>
+                    <div class="media-info-r">
+                        <div class="media-info-title">
+                            <span class="media-info-title-t">史上最强大魔王转生为村民甲</span>
+                            <span class="media-tags" style="opacity: 1;">
+                                <span class="media-tag">异世界</span>
+                                <span class="media-tag">搞笑</span>
+                                <span class="media-tag">小说改</span>
+                                <span class="media-tag">热血</span>
+                            </span>
+                        </div>
+                        <div class="media-info-datas">
+                            <div class="media-info-count">
+                                <span class="media-info-count-item media-info-count-item-play">
+                                    <span class="media-info-label">总播放：</span> <em>2685.6万</em>
+                                </span>
+                                <span class="media-info-count-item media-info-count-item-fans">
+                                    <span class="media-info-label">追番人数：</span> <em>83.8万</em>
+                                </span>
+                                <span class="media-info-count-item media-info-count-item-review">
+                                    <span class="media-info-label">弹幕总数：</span> <em>6.7万</em>
+                                </span>
+                            </div>
+                            <div class="media-info-score-wrp">
+                                <div class="media-info-score">
+                                    <div class="media-info-score-content">5.0</div>
+                                    <div class="media-info-star-wrapper">
+                                        <span class="review-stars">
+                                            <i class="icon-star icon-star-light"><i></i></i>
+                                            <i class="icon-star icon-star-light"><i></i></i>
+                                            <i class="icon-star icon-star-light"><i></i></i>
+                                            <i class="icon-star icon-star-light"><i></i></i>
+                                            <i class="icon-star icon-star-light"><i></i></i>
+                                        </span>
+                                        <div class="media-info-review-times">84565人评</div>
+                                        <div class="to-review-btn">我的评分</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media-info-time">
+                            <span>连载中, 每周一 21:00更新</span>
+                            <span>已更新, 11集</span>
+                        </div>
+                        <div class="media-info-intro">
+                            <span class="media-info-intro-text">简介：他是于神话中留名的史上最强魔王瓦尔瓦托斯。他以王的身份走完了一生，由于强大而无比孤独，因此向往着平凡的生活，并在数千年后的世界转生成了村民亚德·梅特尔。然而，在他转生的未来，魔法文明不断衰落。魔法本身已经无比弱小。亚德与自己的第一个朋友兼发小伊莉娜一起进入了魔法学园，虽然他尽力避免成为一个特殊人物，却藏不住自己过人的力量。敬畏他的人、想要亲近他的人络绎不绝，而过去令世界陷入恐惧的「魔族」也在暗地里展开了行动。前「魔王」究竟能否取得安稳而平凡的人生呢？波澜万丈的学园英雄奇幻故事，就此开幕！</span>
+                        </div>
+                        <div class="media-info-btns">
+                            <div class="bangumi-btn">
+                                <div class="btn-follow followed"><i></i>已追番</div>
+                                <div class="bangumi-options clearfix">
+                                    <ul class="opt-list">
+                                        <li class="">标记为 想看</li>
+                                        <li class="disabled">标记为 在看</li>
+                                        <li class="">标记为 已看</li>
+                                        <li>取消追番</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+ 
+
+
+
+    <div class="comments">
+
+
+        <div class="comment-wrap">
+            <div class="photo">
+                <div class="avatar" style="background-image: url('/static/images/akalin.jpg')"></div>
+            </div>
+            
+            <div class="comment-block">
+                <!-- 暂时静态 -->
+                <form action="/insert/2262592" method="post">
+                    <textarea name="info" id="" cols="30" rows="3" placeholder="Say somthing..."></textarea>
+                    <button class="button" >发布</a>
+                </form>
+            </div>
+        </div>
+        <div class="comment-wrap">
+            <div class="photo">
+                <div class="avatar" style="background-image: url('/static/images/akalin.jpg')"></div>
+            </div>
+            <div class="comment-block">
+                <div class ="comment-name">admin</div> 
+                <p class="comment-text">引人深思，耐人寻味</p>
+                <div class="bottom-comment">
+                    <div class="comment-date">2022-01-01 11:11:11</div>
+                    <ul class="comment-actions">
+                        <li class="complain">
+                            <label for="checkbox">
+                            <input type="checkbox" id="checkbox" onclick="checkboxOnclick(this)" hidden>
+                            <svg t="1639041971928" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3128"><path d="M512 896a42.666667 42.666667 0 0 1-30.293333-12.373333l-331.52-331.946667a224.426667 224.426667 0 0 1 0-315.733333 223.573333 223.573333 0 0 1 315.733333 0L512 282.026667l46.08-46.08a223.573333 223.573333 0 0 1 315.733333 0 224.426667 224.426667 0 0 1 0 315.733333l-331.52 331.946667A42.666667 42.666667 0 0 1 512 896z" p-id="3129" id="heart"></path></svg>
+                            </label>
+                        </li>
+                        <li class="reply" id = "reply">
+                            360
+                        </li>
+                            <script>
+                                function checkboxOnclick(checkbox){
+                                if ( checkbox.checked == true){
+                                    
+                                    document.getElementById("reply").innerHTML="361";
+                      
+                                }else{
+                      
+                                //Action for not checked
+                                    document.getElementById("reply").innerHTML="360";
+                                }
+                                }
+                            </script>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        {% if flag == 1 %}
+        {% for i in data|reverse %}
+    
+        <div class="comment-wrap">
+            <div class="photo">
+                <div class="avatar" style="background-image: url('/static/images/akalin.jpg')"></div>
+            </div>
+            <div class="comment-block">
+                <div class ="comment-name">{{i[1]}}</div> 
+                <p class="comment-text">{{i[2]}}</p>
+                <div class="bottom-comment">
+                    <div class="comment-date">{{i[3]}}</div>
+                    <ul class="comment-actions">
+                        <li class="complain">
+                            <label for="checkbox">
+                            <input type="checkbox" id="checkbox" hidden>
+                            <svg t="1639041971928" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3128"><path d="M512 896a42.666667 42.666667 0 0 1-30.293333-12.373333l-331.52-331.946667a224.426667 224.426667 0 0 1 0-315.733333 223.573333 223.573333 0 0 1 315.733333 0L512 282.026667l46.08-46.08a223.573333 223.573333 0 0 1 315.733333 0 224.426667 224.426667 0 0 1 0 315.733333l-331.52 331.946667A42.666667 42.666667 0 0 1 512 896z" p-id="3129" id="heart"></path></svg>
+                            </label>
+                        </li>
+                        <li class="reply">
+                            {{i[5]}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        
+        
+    </div>
+    <!-- main-page end -->
+    </div>
+
+
+
+    <!-- javascript -->
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 官网提供的 axios 在线地址 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    
+
+
+</body>
+
+</html>

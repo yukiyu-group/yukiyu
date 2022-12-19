@@ -18,6 +18,7 @@
 --
 -- Table structure for table `acfun`
 --
+use yukiyu;
 
 DROP TABLE IF EXISTS `acfun`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -393,3 +394,17 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2022-11-08 20:03:51
+
+
+DROP TABLE IF EXISTS comment;
+
+CREATE TABLE comment(
+    comment_id int NOT NULL AUTO_INCREMENT primary key,
+    name varchar(20) not null,
+    info text not null,
+    date datetime not null
+)engine=innodb default charset=utf8mb4;
+
+INSERT INTO comment VALUES (1,'ztzdr','好','2022-01-01 11:11:11');
+INSERT INTO comment VALUES (2,'ztzdr','xing','2022-01-01 11:11:12');
+INSERT INTO comment VALUES (3,'ztzdr','可','2022-01-01 11:11:14');

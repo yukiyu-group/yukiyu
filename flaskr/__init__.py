@@ -14,6 +14,8 @@ from databaseCURD import getDatabase, commitChangeToDatabase
 import getDetailInfo
 
 import json
+from comment import comment_model
+import time
 
 
 def create_app(test_config=None):
@@ -120,7 +122,10 @@ def create_app(test_config=None):
                                                   getattr(current_user, 'username', None))
             return returnStatus
 
-    @app.route('/bangumi')
+
+
+    @app.route('/bangumi/')
+
     def get_bangumi_info():
         agrs = request.args
         bangumi = None
@@ -134,6 +139,38 @@ def create_app(test_config=None):
     def favicon():
         print('favicon fun called!')
         return current_app.send_static_file('images/favicon.ico')
+
+    @app.route('/yukiyu/comment/<bangumi_id>')
+    def comment(bangumi_id):
+        row = comment_model("select * from comment where bangumi_id = %d"%(int(bangumi_id)))
+        if hasattr(current_user, 'username'):
+            userame = current_user.username
+        if row == 0 or None:
+            flag = 0
+        else:
+            flag = 1
+        return render_template('comment.html', data=row, flag = flag)
+
+    @app.route('/insert/<bangumi_id>', methods=['POST'])
+    def insert(bangumi_id):
+        # 1.接收表单数据
+        data = request.form.to_dict() 
+        data['date'] = time.strftime('%Y-%m-%d %H:%M:%S')
+        print(data)
+        # 2.把数据添加到数据库
+        if hasattr(current_user, 'username'):
+            userame = current_user.username
+        print(userame)
+        sql = f'insert into comment values(null,"{userame}","{data["info"]}","{data["date"]}",{int(bangumi_id)},0)'
+        res = comment_model(sql)
+        print(res)
+
+        # 3.
+        if res:
+            return '<script>alert("发布成功！");location.href="/yukiyu/comment/%d"</script>'%(int(bangumi_id))
+        else:
+            return '<script>alert("发布失败！");location.href="/yukiyu/comment/%d"</script>'%(int(bangumi_id))
+
 
     @app.route('/Swehominmind/')
     def show_detail():

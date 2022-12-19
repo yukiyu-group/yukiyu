@@ -24,23 +24,25 @@
       <div id="bangumi" class="w box_style" v-cloak>
           <header class="storey-title">
               <h2>排行榜示例</h2>
-              <div id="week-choose">
+              <!-- <div id="week-choose">
                   <ul>
                       <li v-for="(item, index) in weeks" :class="{list_on:index==weekMark}" @click="changeWeekMark(index)">分类示例{{index}}</li>
                   </ul>
-              </div>
+              </div> -->
           </header>
+          
           <div id="bangumi-list" class="list-box box_style clearfix">
               <ul v-for="(pack, weekDay) in bangumiGet" v-show="weekDay==weekMark">
                   <li v-for="(item, index) in pack.seasons">
-                      <span class="detail-info" @click="getDetailInfo(item)">详情</span>
+                      <span>排号{{ rank_details[0].rank_id }}</span>
+                      <!-- <span>排号{{ rank_details[index].rank_id }}</span> -->
                       <a :href="getPlayUrl(item, index)" class="pic" target="new"><img :src="item['img']" alt=""></a>
                       <div class="text">
                           <!-- TODO: overflow ... -->
                           <a :href="getPlayUrl(item, index)" class="bangumi-title" target="new">{{item['name']}}</a>
                           <div class="text-bottom">
-                              <a :href="getPlayUrl(item, index)" class="episode" target="new">{{item['episode']}}</a>
-                              <span class="chevron-right" @mouseenter="showUrlList(index)" @mouseleave="hideUrlList">
+                              <!-- <a :href="getPlayUrl(item, index)" class="episode" target="new">{{item['episode']}}</a> -->
+                              <span class="chevron-right" @mouseenter="showUrlList(index)" @mouseleave="hideUrlList">{{ rank_details[0].rank_heats }}热度
                                   <ul v-show="index==showMark">
                                       <li v-for="(i, name) in item['play_url']">
                                           <a :href="i" target="new">{{name}}</a>

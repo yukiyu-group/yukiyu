@@ -47,6 +47,49 @@
             </ul>
         </header>
         <!-- header end -->
+        <!-- sidebar start-->
+        <div id="side-menu">
+            <div id="side-menu-inner">
+                <!-- <h1 style="text-align:center;color:blue">排行榜示例</h2> -->
+                <!-- <div class="cr-content">
+                    <ol style="font-size: 14px;">
+                        <li class="rank-list" style="list-style:none;">1. 我家师傅没有尾巴</li>
+                        <li style="display:inline;">2. 勇者斗恶龙 达伊的大冒险</li>
+                        <li>3. 博人传 火影忍者新时代</li>
+                    </ol>
+                </div> -->
+                {% raw %}
+                <div id="rankList" class="" v-cloak>
+                    <header>
+                        <a href="/rank" style="color:brown">点击这里访问 详细排行榜</a>
+                        <h1 style="text-align:center;color:blue" >排行榜</h2>
+                        <!-- <div id="week-choose">
+                            <ul>
+                                <li v-for="(item, index) in weeks" :class="{list_on:index==weekMark}" @click="changeWeekMark(index)">{{item}}</li>
+                            </ul>
+                        </div> -->
+                        
+                    </header>
+                    <div id="bangumi-list">
+                        <ul>
+                            <li v-for="(item, index) in rankListGet">
+                                <span>No.{{ index + 1}}</span>
+                                <a :href="getPlayUrl(item, index)" target="new"></a>
+                                <div class="text">
+                                    <!-- TODO: overflow ... -->
+                                    <a :href="getPlayUrl(item, index)" target="new">{{item['title']}}</a>
+                                    <span>{{ item['heat'] }}热度</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {% endraw %}
+            </div>
+        </div>
+
+        
+        <!-- sidebar end-->
         <aside class="aside-nav box_style">
             <ul>
                 <li><a href="/yukiyu">首页</a></li>
@@ -66,7 +109,6 @@
             </header>
             <div id="bangumi-list" class="list-box box_style clearfix">
                 <ul v-for="(pack, weekDay) in bangumiGet" v-show="weekDay==weekMark">
-                    
                     <li v-for="(item, index) in pack.seasons">
                         <a href="/yukiyu/comment/2262592"><span class="detail-info" >详情</span></a>
                         <a :href="getPlayUrl(item, index)" class="pic" target="new"><img :src="item['img']" alt=""></a>
@@ -82,7 +124,6 @@
                                         </li>
                                     </ul>
                                 </span>
-                                
                             </div>
                         </div>
                         
@@ -123,5 +164,6 @@
     <!-- js 动态元素 -->
     <!-- <script src="{{url_for('static', filename='js/index_dynamic.js')}}"></script> -->
     <script src="../static/js/index_dynamic.js"></script>
+    <script src="{{url_for('static', filename='js/rankList.js')}}"></script>
 </body>
 </html>

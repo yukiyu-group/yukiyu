@@ -32,7 +32,12 @@ axios.get("http://localhost:8088/bangumi")
                     company_name: 'company company company',
                     conduct_name: 'conduct',
                     cast:['aaaa', 'bbbb', 'cccc', 'dddd', 'eeeeeee', 'fff', 'ggggggggggggg', 'hhh']
-                }
+                },
+                rank_details: [{
+                    title: "xx",
+                    play_url: "bili.com",
+                    heat: "1.3w"
+                }]
             },
             methods: {
                 getPlayUrl: function (item, index) {

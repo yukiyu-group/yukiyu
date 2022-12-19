@@ -10,6 +10,9 @@ import get_last_week
 from get_last_week import get_last_week, get_detail_info
 from user import User, get_user, create_user
 from databaseCURD import getDatabase, commitChangeToDatabase
+
+import getDetailInfo
+
 import json
 
 
@@ -135,6 +138,24 @@ def create_app(test_config=None):
     @app.route('/Swehominmind/')
     def show_detail():
         return render_template('details.html', title='辉夜大小姐想让我告白', contain='一些介绍')
+
+    @app.route('/rank/')
+    def show_rank():
+        return render_template('rank.html')
+
+    @app.route('/detailInfo/')
+    def detailInfo():
+        bangumiId = request.args['id']
+        detailInfo = getDetailInfo.getDetailById(bangumiId)
+        return detailInfo
+
+    @app.route('/profile/')
+    def show_profile():
+        username = request.args.get("user", default="未登录", type=str)
+        return render_template('profile.html', user=username)
+
+    app.config['JSON_AS_ASCII'] = False
+    app.config['JSONIFY_MIMETYPE'] = "application/json;charset=utf-8"  # 指定浏览器渲染的文件类型，和解码格式；
 
     return app
 

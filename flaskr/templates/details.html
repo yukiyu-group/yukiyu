@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/details.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/details.css')}}">>
 </head>
 <body>
 <ul class="nav_hor">
@@ -11,33 +11,96 @@
     <li class="head"><b>番剧详情：{{ title }}</b></li>
         <li><a href="/">登录</a></li>
 </ul>
-  <div class="row">
-        <div class="column side">
-            <ul class="nav_vert">
-                <li>
-                    <a class="main active" href="#">番剧简介</a>
-                </li>
-                <li>
-                    <a class="main " href="#">番剧评论</a>
-                </li>
-            </ul>
-        </div>
-        <div class="column body">
-            <div>
-                 作品题材的灵感是源自于作者在熏制食材时对青春的回忆。在初中二年级时，作者深受动画《新世纪福音战士》的影响，心念着要创作出具备世界系元素的作品。虽然惦记着世界系漫画，但是他自认为是一位多面手，能够驾驭各种题材。在作者上一部作品、颇有世界系风格的《ib -速成的子弹- 世界终焉与当男孩遇到女孩》完结后，他还想要创作一部满是亡者的致郁系漫画，涉及元素包括死亡游戏，又有杀人鬼登场。不过在与编辑洽谈了3个月后，对这个题材感到疲惫的编辑让作者换一个轻松的题材。这时候作者想起了熏制食材时联想到的，是在放学路上的少年少女为了让对方表白而若有所思的模样。与之结合的，就是“傲娇”与“学生会”元素。
-在创作时，作者会通过一小点灵感进行发散补充，例如，因为是要引诱对方表白而设计圈套，这个设定让人感觉角色的头脑相当好，而论及这样聪明的学生，那就是出身于名门学校的学生会干部了；再者，从“玩游戏耍小手段被识破很羞耻”出发，联想到“欺诈游戏当属扑克牌”，再到“那么如何在游戏中作弊呢？”，如此这般，作者排列组合各种有趣的因素后，最后构筑出了一则又一则的故事。虽然起初的设定为“恋爱的头脑战”，但作者在创作过程中也发觉这个“头脑战”的元素并不是最当紧的，更为重要的是要通过作品去表现角色们的感情。
-作者指出，令本作男女主人公裹足不前的缘由符合“分明认定了既有目标，却因受制于某种思想局限、观念束缚，而陷入无限死循环”的室内情景喜剧的编剧逻辑。作者参考了《生活大爆炸》里登场人物的互动模式，还借鉴了以描绘脑内博弈见长的《赌博默示录》。
-漫画第一话中辉夜所说的决胜口头禅“真是可爱呢”，在日语里，原本这类表达是贵族们以鄙夷的口气、居高临下讥讽他人使用的措辞。之所以在漫画中一再出现，是责编的提议。
-而从主角的命名上，作者也明显有意套用《竹取物语》的典故。学生会长白银御行，对应大供御行；书记藤原，对应车持王子的原型藤原不比等；会计石上优，则源自石上麻吕。在作者看来，藤原拥有伤人于无形而不自知的“危险”属性。而辉夜疼爱石上，也合乎《竹取物语》中的人物关系设定。但老师坦白他起先给角色们起名时，用的是另一套名字。直到第1话最终审定时，忽觉辉夜这个角色身上公主式的傲慢腔颇重，才顺势给全员改了名字。
-至于侍奉辉夜的早坂爱，原先是在漫画第3话中白银与辉夜一同去电影院时临时串场的人物。事后作者意识到辉夜这样的大小姐应该有个年龄相仿的陪侍者才对，便觉那女孩正是合适人选。他认为与其另行构思新角色，还不如“再利用”来得经济有效，且读者这边也应该更易接受。于第3卷登场的石上也属同理，等想起来“缺人”时，作者的脑海里会自然而然浮现出其人的形象。
-随着原作卷数的增加，登场人物也越来越多。提起“增员”的原则及注意点，作者表示自己的这部漫画会尽量不去描写那些行动原理令人匪夷所思、难以情感代入的人物。他认为本作的主轴始终立足于“情感”，目的是要向读者传达某种细腻微妙的情感语境，让人看后生出“果不其然”的共鸣。为此，剧中并不回避揭示人性之中自私丑恶的一面，因而白银、辉夜“恶毒本性”发作时无所不用其极的行径，也非常刷新三观。
-除此之外，作者在创作时还受到了《鲁莽天使》《校园迷糊大王》以及某些海外影视剧的影响。作者阅读《鲁莽天使》的一卷漫画需花费相当之长的时间，也因此他对登场角色们日久生情。而他选择写实的人物情感推进方式，同样是效仿西森博之的做法。另外，他还借鉴了海外影视剧中的情侣分分合合的编剧手法。例如，老师颇为赞赏“童男脱贞后行情看涨”的操作。他觉得这类型的喜剧有时不玩类似的梗便难以为继。 [4-5]
+<div id="app" class="media-detail-wrp">
+    <div class="media-info-wrp">
+        <div class="media-info-content">
+            <div class="media-info-inner clearfix">
+                <div class="media-preview">
+                    <div class="common-lazy-img">
+                        <img alt="强风吹拂" src="{{url_for('static',filename='images/pic_test.png')}}" lazy="loaded">
+                    </div> <!---->
+                </div>
+                <div class="media-info-r">
+                    <div class="media-info-title">
+                        <span class="media-info-title-t">强风吹拂</span>
+                        <span class="media-tags" style="opacity: 1;">
+                            <span class="media-tag">运动</span>
+                            <span class="media-tag">励志</span>
+                            <span class="media-tag">小说改</span>
+                            <span class="media-tag">热血</span>
+                        </span>
+                    </div>
+                    <div class="media-info-datas">
+                        <div class="media-info-count">
+                            <span class="media-info-count-item media-info-count-item-play">
+                                <span class="media-info-label">总播放</span> <em>6510.4万</em>
+                            </span>
+                            <span class="media-info-count-item media-info-count-item-fans">
+                                <span class="media-info-label">追番人数</span> <em>227.6万</em>
+                            </span>
+                            <span class="media-info-count-item media-info-count-item-review">
+                                <span class="media-info-label">弹幕总数</span> <em>68.1万</em>
+                            </span>
+                        </div>
+                        <div class="media-info-score-wrp">
+                            <div class="media-info-score">
+                                <div class="media-info-score-content">9.9</div>
+                                <div class="media-info-star-wrapper">
+                                    <span class="review-stars">
+                                        <i class="icon-star icon-star-light"><i></i></i>
+                                        <i class="icon-star icon-star-light"><i></i></i>
+                                        <i class="icon-star icon-star-light"><i></i></i>
+                                        <i class="icon-star icon-star-light"><i></i></i>
+                                        <i class="icon-star icon-star-light"><i></i></i>
+                                    </span>
+                                    <div class="media-info-review-times">84565人评</div>
+                                    <div class="to-review-btn">我的评分</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media-info-time">
+                        <span>2018年10月3日开播</span>
+                        <span>已完结, 全23话</span>
+                    </div>
+                    <div class="media-info-intro">
+                        <span class="media-info-intro-text">简介：夜晚。如同逃跑一般奔驰在城市中的藏原走。他的侧面，突然有辆自行车冲来。素不相识的男子，对阿走发问了。“喂！你很喜欢跑步吧！”男子的名字是清濑灰二。 就这样，阿走在灰二的引导下，到达了名为竹青庄的老旧公寓。9名个性丰富的住民住在那里。阿走来到最后的空房间，虽然感到困惑，却仍然被强行留下。他怎么也没有想到，自己会成为这里的“第10个男人”……。</span>
+                    </div>
+                    <div class="media-info-btns">
+                        <div class="bangumi-btn">
+                            <div class="btn-follow followed"><i></i>已追番</div>
+                            <div class="bangumi-options clearfix">
+                                <ul class="opt-list">
+                                    <li class="">标记为 想看</li>
+                                    <li class="disabled">标记为 在看</li>
+                                    <li class="">标记为 已看</li>
+                                    <li>取消追番</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            fafas
         </div>
-        <div class="column right">
-
+        <div class="media-info-card">
+            <div class="mic-title">角色配音</div>
+            <div>
+                <div class="mic-evaluate" style="height: auto;">
+                    <span class="">
+                        <p>藏原走：大塚刚央<br>清濑灰二：丰永利行<br>柏崎茜：入野自由<br>城太郎：榎木淳弥<br>城次郎：上村祐翔<br>杉山高志：内山昂辉<br>坂口洋平：北泽力<br>岩仓雪彦：兴津和幸<br>平田彰宏：星野贵纪<br>穆萨·卡马拉：株元英彰<br>胜田叶菜子：木村珠莉<br>榊浩介：河西健吾<br>田崎源一郎：中村浩太郎</p>
+                    </span>
+                </div> <!---->
+            </div>
+        </div>
+        <div class="media-info-card">
+            <div class="mic-title">STAFF</div>
+            <div>
+                <div class="mic-evaluate" style="height: 164px;">
+                    <span class="static">
+                        <p>原作：三浦紫苑《强风吹拂》（新潮文库刊）<br>监督：野村和也<br>系列构成、剧本：喜安浩平<br>角色设计：千叶崇洋<br>主动画师：高桥英树、向田隆<br>音响监督：菊田浩巳<br>音乐：林友树<br>动画制作：Production I.G<br>企划协力：新潮社</p>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
-</body>
-</html>
+</div>

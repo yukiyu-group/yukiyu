@@ -68,7 +68,7 @@
                 <ul v-for="(pack, weekDay) in bangumiGet" v-show="weekDay==weekMark">
                     
                     <li v-for="(item, index) in pack.seasons">
-                        <span class="detail-info" @click="getDetailInfo(item)"><a herf="/yukiyu/comment/2262592">详情</a></span>
+                        <a href="/yukiyu/comment/2262592"><span class="detail-info" >详情</span></a>
                         <a :href="getPlayUrl(item, index)" class="pic" target="new"><img :src="item['img']" alt=""></a>
                         <div class="text">
                             <!-- TODO: overflow ... -->
@@ -85,6 +85,7 @@
                                 
                             </div>
                         </div>
+                        
                     </li>
                 </ul>
             </div>

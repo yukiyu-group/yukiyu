@@ -1,12 +1,14 @@
 # A站的爬虫模块
 # 从A站中爬取新番数据
 
+import imp
 from time import sleep
 import urllib.request
 import os
 import json
 from PIL import Image
 import io
+import config
 
 
 def url_open(url):
@@ -14,9 +16,9 @@ def url_open(url):
         res = try_open(url)
         if res != None:
             return res
-        print('request url:%s\nfailed!\nretry after 1 sec!'%url)
+        print('request url:%s\nfailed!\nretry after 1 sec!' % url)
         sleep(1)
-    
+
     print('urllib.error.HTTPError: HTTP Error 500: Internal Error')
     return ''.encode('utf-8')
 
@@ -24,7 +26,8 @@ def url_open(url):
 def try_open(url):
     req = urllib.request.Request(url)
     req.add_header(
-        'User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36')
+        'User-Agent',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36')
     try:
         response = urllib.request.urlopen(req)
         html = response.read()
@@ -43,7 +46,7 @@ def img_save(bangumi, path):
             # img_path = path+'/'+img_name+'.'+img_url.split('.')[-1]
             img_last = img_url.split('.')[-1]
             end = img_last.find("?")
-            img_path = img_name.replace('/', '-')+'.'+img_last[0:end]
+            img_path = img_name.replace('/', '-') + '.' + img_last[0:end]
             print(img_url)
             img = url_open(img_url)
             img = io.BytesIO(img)
@@ -67,29 +70,29 @@ def get_bangumi(html, need_img=False):
     while end < today_end:
         cur = {}
         start = html.find('list-item', start)
-        end = html.find('list-item', start+10)
+        end = html.find('list-item', start + 10)
         # print('find item from:')
         # print(html[start:end])
         # print('\n')
         img_pos = html.find('img src=', start, end)
         start = html.find('a href=', start, end)
-        cur_end = html.find('"', start+12, end)
+        cur_end = html.find('"', start + 12, end)
         # print('play_url start = %d, end = %d' %(start,cur_end-1))
         # print('play_url:%s' %(html[start:cur_end-1]))
-        cur['play_url'] = 'https://www.acfun.cn' + html[start+9:cur_end-1]
+        cur['play_url'] = 'https://www.acfun.cn' + html[start + 9:cur_end - 1]
         if need_img:
             # TODO: change this to a default pic
             if img_pos == -1:
                 cur['img'] = '../static/upload/default.webp'
             else:
-                cur_end = html.find('?', img_pos+10, end)
-                cur['img'] = html[img_pos+10:cur_end] + \
-                    '?imageView2/1/w/70/h/70'
+                cur_end = html.find('?', img_pos + 10, end)
+                cur['img'] = html[img_pos + 10:cur_end] + \
+                             '?imageView2/1/w/70/h/70'
         else:
             cur['img'] = ''
         start = html.find('<b>', start, end)
         cur_end = html.find('</b>', start, end)
-        cur['name'] = html[start+3:cur_end].replace('/', '-').replace("'", " ")
+        cur['name'] = html[start + 3:cur_end].replace('/', '-').replace("'", " ")
         start = html.find('第', start, end)
         cur_end = html.find('</p>', start, end)
         cur['episode'] = html[start:cur_end].split('>')[-1]

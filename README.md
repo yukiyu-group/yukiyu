@@ -4,6 +4,21 @@
 
 http://106.15.77.207/yukiyu
 
+### 本地运行方式
+
+在项目根目录运行
+
+```bash
+pip install -r requirements.txt
+
+cd flaskr/
+
+python __init__.py
+```
+
+访问 [localhost:8080/yukiyu](http://localhost:8088/yukiyu) 即可
+
+
 ## 项目背景
 
 该项目立足于目前各大平台网站的番剧信息较为分散，用户需要辗转多个平台才能获取较为完整的番剧信息的背景下，实现了各大平台网站番剧信息的整合。将各大平台网站的番剧更新信息及番剧详情信息整合制表，展现在我们的网页上。
@@ -467,7 +482,13 @@ def get_target_week(netName):
 
 ```python
 def get_detail_info(id='4100450'):
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
     print('get bangumi detail info: ')
     cursor = db.cursor()
     sql = """
@@ -532,7 +553,13 @@ def commitChangeToDatabase(oldInfo, newInfo, targetTable, user = None):
     userPrivilege = privilegeOfUser(user).get('privilege')
 
     global db
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host, 
+        port=config.port, 
+        db=config.database, 
+        user=config.user, 
+        password=config.password,
+        charset='utf8')
     if oldInfo == None and newInfo == None or not checkValibleTableName(targetTable, user):
         print('error ! invalid change!')
         print('oldInfo:', oldInfo)

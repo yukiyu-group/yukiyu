@@ -2,6 +2,7 @@
 import bilibili
 import AcFun
 import AGE
+import config
 
 
 def get_bili_info(need_img):
@@ -9,8 +10,8 @@ def get_bili_info(need_img):
     return info
 
 
-def merge_info(need_img = False):
-    bangumi_dict={}
+def merge_info(need_img=False):
+    bangumi_dict = {}
     # append bilibili bangumi below
     # info_list = []
     print('start to get bilibili')
@@ -21,12 +22,12 @@ def merge_info(need_img = False):
     #     info_list.append({'name': i['name'], 'play_url': i['play_url'],
     #                       'episode': i['episode'], 'img': i['img']})
     # bilibili info merge end
-    bangumi_dict['bilibili']=bili_list
+    bangumi_dict['bilibili'] = bili_list
 
     # append AcFun bangumi below
     print('start to get acfun')
     ac_list = AcFun.get_Ac_info(need_img)
-    bangumi_dict['acfun']=ac_list
+    bangumi_dict['acfun'] = ac_list
     print('success!')
     print(ac_list)
 
@@ -35,7 +36,7 @@ def merge_info(need_img = False):
     # bangumi_dict['AGE'] = AGE.get_AGE_info(True)
     # print('success!')
     # print(bangumi_dict['AGE'])
-    
+
     return bangumi_dict
 
 

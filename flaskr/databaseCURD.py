@@ -5,9 +5,10 @@
 import traceback
 import pymysql
 from userManage import commmitChangeToUserlist, privilegeOfUser, ifManage
-
+import config
 
 global db
+
 
 # TODO: improve the robustness
 def checkValibleTableName(targetTable, user):
@@ -15,7 +16,8 @@ def checkValibleTableName(targetTable, user):
         return user in getSuperUser()
     return targetTable != None
 
-def commitChangeToDatabase(oldInfo, newInfo, targetTable, user = None):
+
+def commitChangeToDatabase(oldInfo, newInfo, targetTable, user=None):
     returnStatu = changeProcess(oldInfo, newInfo, targetTable, user)
     if returnStatu == 0:
         info = '错误的数据格式！'
@@ -35,6 +37,7 @@ def commitChangeToDatabase(oldInfo, newInfo, targetTable, user = None):
         info = '未知错误！'
     return {'statu': returnStatu, 'info': info}
 
+
 # this function call updataItem, insertItem, deleteItem
 # according to the oldInfo and newInfo
 # if oldInfo is None, call insert
@@ -49,13 +52,19 @@ def commitChangeToDatabase(oldInfo, newInfo, targetTable, user = None):
 # -3 : user has not target privilege
 # -4 : manager's privilege is not 'YYYY' 
 # -5 : user name chongfu
-def changeProcess(oldInfo, newInfo, targetTable, user = None):
+def changeProcess(oldInfo, newInfo, targetTable, user=None):
     if user == None:
         return -2
     userPrivilege = privilegeOfUser(user).get('privilege')
 
     global db
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host,
+        port=config.port,
+        db=config.database,
+        user=config.user,
+        password=config.password,
+        charset='utf8')
     if oldInfo == None and newInfo == None or not checkValibleTableName(targetTable, user):
         print('error ! invalid change!')
         print('oldInfo:', oldInfo)
@@ -86,12 +95,14 @@ def changeProcess(oldInfo, newInfo, targetTable, user = None):
             returnStatus = -3
     return returnStatus
 
+
 # shuffle : ((a,),(b,),(c,)) --> (a, b, c)
 def signColumnsShuffle(input):
     res = []
     for i in input:
         res.append(i[0])
     return res
+
 
 # shuffle datetime.date to str: 2021-02-20
 def datetimeShffle(input):
@@ -103,10 +114,11 @@ def datetimeShffle(input):
         res.append(temp)
     return res
 
+
 def getTableHead(tableName):
     print('start to get table head from ' + tableName)
     cursor = db.cursor()
-    sql = "select column_name from information_schema.columns as col where col.table_name='%s'"%tableName
+    sql = "select column_name from information_schema.columns as col where col.table_name='%s'" % tableName
     print('start to execute:')
     print(sql)
     cursor.execute(sql)
@@ -117,10 +129,11 @@ def getTableHead(tableName):
     cursor.close()
     return res
 
+
 def getTableData(tableName):
     cursor = db.cursor()
     print('start to get table data from ' + tableName)
-    sql = "select * from %s"%tableName
+    sql = "select * from %s" % tableName
     # print('start to execute:')
     # print(sql)
     cursor.execute(sql)
@@ -129,6 +142,7 @@ def getTableData(tableName):
     print(res)
     cursor.close()
     return res
+
 
 def getSuperUser():
     cursor = db.cursor()
@@ -139,9 +153,10 @@ def getSuperUser():
     res = cursor.fetchall()
     res = signColumnsShuffle(res)
     print('execute success!')
-    print('result:' ,res)
+    print('result:', res)
     cursor.close()
     return res
+
 
 def getTableNames(user):
     cursor = db.cursor()
@@ -160,11 +175,18 @@ def getTableNames(user):
     res.remove('bangumi_list')
     res.insert(0, 'bangumi_list')
     return res
-    
+
+
 # get all tables, including table names and data
 def getDatabase(target, user):
     global db
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host,
+        port=config.port,
+        db=config.database,
+        user=config.user,
+        password=config.password,
+        charset='utf8')
     print('get url args:')
     print(target)
     res = {}
@@ -172,7 +194,7 @@ def getDatabase(target, user):
     for key in target:
         if target[key] != 'tables':
             # 获取数据表中的表头
-            res[target[key]+'Header'] = getTableHead(target[key])
+            res[target[key] + 'Header'] = getTableHead(target[key])
             # 获取数据表中的所有数据
             if selectPriv == 'Y':
                 res[target[key]] = getTableData(target[key])
@@ -196,10 +218,9 @@ def getKeyValueString(name, data, seperate=','):
     return res
 
 
-
 # return the string: value1 seperate value2...
 # if strlization is True, when the data[i] is str, the value will be: 'value'
-def getValueString(data, seperate=',', strlization = False):
+def getValueString(data, seperate=',', strlization=False):
     seperate = ' ' + seperate + ' '
     res = ''
     strlize = ''
@@ -212,6 +233,7 @@ def getValueString(data, seperate=',', strlization = False):
             res += seperate
     return res
 
+
 def updateItem(oldInfo, newInfo, targetTable):
     tableHead = getTableHead(targetTable)
     setField = getKeyValueString(tableHead, newInfo, ',')
@@ -222,7 +244,7 @@ def updateItem(oldInfo, newInfo, targetTable):
             update %s
             set %s
             where %s
-          """%(targetTable, setField, whereField)
+          """ % (targetTable, setField, whereField)
     try:
         print('start to execute:')
         print(sql)
@@ -238,16 +260,17 @@ def updateItem(oldInfo, newInfo, targetTable):
     db.close()
     return returnStatus
 
+
 def insertItem(newInfo, targetTable):
     tableHeadStr = getValueString(getTableHead(targetTable))
-    valueStr = getValueString(newInfo,strlization=True)
+    valueStr = getValueString(newInfo, strlization=True)
     cursor = db.cursor()
     sql = """
             insert into %s
             (%s)
             values
             (%s)
-        """%(targetTable, tableHeadStr, valueStr)
+        """ % (targetTable, tableHeadStr, valueStr)
     returnStatus = 0
     try:
         print('start to execute:')
@@ -264,6 +287,7 @@ def insertItem(newInfo, targetTable):
     db.close()
     return returnStatus
 
+
 def deleteItem(oldInfo, targetTable):
     tableHead = getTableHead(targetTable)
     whereField = getKeyValueString(tableHead, oldInfo, 'and')
@@ -271,7 +295,7 @@ def deleteItem(oldInfo, targetTable):
     sql = """
             delete from %s
             where %s
-        """%(targetTable, whereField)
+        """ % (targetTable, whereField)
     returnStatus = 0
     try:
         print('start to execute:')
@@ -287,11 +311,18 @@ def deleteItem(oldInfo, targetTable):
         returnStatus = 0
     db.close()
     return returnStatus
-        
+
+
 def getUserList():
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+    db = pymysql.connect(
+        host=config.host,
+        port=config.port,
+        db=config.database,
+        user=config.user,
+        password=config.password,
+        charset='utf8')
     cursor = db.cursor()
     sql = 'select name, password, user_id from user_list'
     cursor.execute(sql)
     res = cursor.fetchall()
-    return res        
+    return res

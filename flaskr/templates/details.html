@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/details.css')}}">>
+</head>
+<body>
+<ul class="nav_hor">
+    <li class="head"><a class="logo" href="{{url_for('index_page')}}"><b>yukiyu</b></a></li>
+    <li class="head"><b>番剧详情：{{ title }}</b></li>
+        <li><a href="/">登录</a></li>
+</ul>
+<div id="app" class="media-detail-wrp">
+    <div class="media-info-wrp">
+        <div class="media-info-content">
+            <div class="media-info-inner clearfix">
+                <div class="media-preview">
+                    <div class="common-lazy-img">
+                        <img alt="强风吹拂" src="{{url_for('static',filename='images/pic_test.png')}}" lazy="loaded">
+                    </div> <!---->
+                </div>
+                <div class="media-info-r">
+                    <div class="media-info-title">
+                        <span class="media-info-title-t">强风吹拂</span>
+                        <span class="media-tags" style="opacity: 1;">
+                            <span class="media-tag">运动</span>
+                            <span class="media-tag">励志</span>
+                            <span class="media-tag">小说改</span>
+                            <span class="media-tag">热血</span>
+                        </span>
+                    </div>
+                    <div class="media-info-datas">
+                        <div class="media-info-count">
+                            <span class="media-info-count-item media-info-count-item-play">
+                                <span class="media-info-label">总播放</span> <em>6510.4万</em>
+                            </span>
+                            <span class="media-info-count-item media-info-count-item-fans">
+                                <span class="media-info-label">追番人数</span> <em>227.6万</em>
+                            </span>
+                            <span class="media-info-count-item media-info-count-item-review">
+                                <span class="media-info-label">弹幕总数</span> <em>68.1万</em>
+                            </span>
+                        </div>
+                        <div class="media-info-score-wrp">
+                            <div class="media-info-score">
+                                <div class="media-info-score-content">9.9</div>
+                                <div class="media-info-star-wrapper">
+                                    <span class="review-stars">
+                                        <i class="icon-star icon-star-light"><i></i></i>
+                                        <i class="icon-star icon-star-light"><i></i></i>
+                                        <i class="icon-star icon-star-light"><i></i></i>
+                                        <i class="icon-star icon-star-light"><i></i></i>
+                                        <i class="icon-star icon-star-light"><i></i></i>
+                                    </span>
+                                    <div class="media-info-review-times">84565人评</div>
+                                    <div class="to-review-btn">我的评分</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media-info-time">
+                        <span>2018年10月3日开播</span>
+                        <span>已完结, 全23话</span>
+                    </div>
+                    <div class="media-info-intro">
+                        <span class="media-info-intro-text">简介：夜晚。如同逃跑一般奔驰在城市中的藏原走。他的侧面，突然有辆自行车冲来。素不相识的男子，对阿走发问了。“喂！你很喜欢跑步吧！”男子的名字是清濑灰二。 就这样，阿走在灰二的引导下，到达了名为竹青庄的老旧公寓。9名个性丰富的住民住在那里。阿走来到最后的空房间，虽然感到困惑，却仍然被强行留下。他怎么也没有想到，自己会成为这里的“第10个男人”……。</span>
+                    </div>
+                    <div class="media-info-btns">
+                        <div class="bangumi-btn">
+                            <div class="btn-follow followed"><i></i>已追番</div>
+                            <div class="bangumi-options clearfix">
+                                <ul class="opt-list">
+                                    <li class="">标记为 想看</li>
+                                    <li class="disabled">标记为 在看</li>
+                                    <li class="">标记为 已看</li>
+                                    <li>取消追番</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="media-info-card">
+            <div class="mic-title">角色配音</div>
+            <div>
+                <div class="mic-evaluate" style="height: auto;">
+                    <span class="">
+                        <p>藏原走：大塚刚央<br>清濑灰二：丰永利行<br>柏崎茜：入野自由<br>城太郎：榎木淳弥<br>城次郎：上村祐翔<br>杉山高志：内山昂辉<br>坂口洋平：北泽力<br>岩仓雪彦：兴津和幸<br>平田彰宏：星野贵纪<br>穆萨·卡马拉：株元英彰<br>胜田叶菜子：木村珠莉<br>榊浩介：河西健吾<br>田崎源一郎：中村浩太郎</p>
+                    </span>
+                </div> <!---->
+            </div>
+        </div>
+        <div class="media-info-card">
+            <div class="mic-title">STAFF</div>
+            <div>
+                <div class="mic-evaluate" style="height: 164px;">
+                    <span class="static">
+                        <p>原作：三浦紫苑《强风吹拂》（新潮文库刊）<br>监督：野村和也<br>系列构成、剧本：喜安浩平<br>角色设计：千叶崇洋<br>主动画师：高桥英树、向田隆<br>音响监督：菊田浩巳<br>音乐：林友树<br>动画制作：Production I.G<br>企划协力：新潮社</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雪柚主页</title>
+    <title>雪柚</title>
     <meta name="referrer" content="no-referrer">
 
     <!-- <link rel="stylesheet" href="../static/css/base.css">
@@ -19,8 +19,6 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
     <!-- main样式文件 -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
-
-
 </head>
 <body>
 
@@ -33,7 +31,7 @@
                 <li><a href="#">番剧</a></li>
                 {% if user %}
                     <li id="user-menu">
-                        <a href="/profile?user={{ user }}">{{user}}</a>
+                        <a href="#">{{user}}</a>
                         <div class="user-info">
                             <p>欢迎您：{{user}}</p>
                             <a class="logout" href="/logout">退出登录</a>
@@ -47,26 +45,27 @@
             </ul>
         </header>
         <!-- header end -->
-        <aside class="aside-nav box_style">
+        <!-- <aside class="aside-nav box_style">
             <ul>
                 <li><a href="/yukiyu">首页</a></li>
                 <li class="aside-li-on">番剧</li>
             </ul>
-        </aside>
+        </aside> -->
+        
         <!-- bangumi start -->
         {% raw %}
         <div id="bangumi" class="w box_style" v-cloak>
             <header class="storey-title">
-                <h2>番剧</h2>
-                <div id="week-choose">
+                <h2>排行榜</h2>
+                <!-- <div id="week-choose">
                     <ul>
                         <li v-for="(item, index) in weeks" :class="{list_on:index==weekMark}" @click="changeWeekMark(index)">{{item}}</li>
                     </ul>
-                </div>
+                </div> -->
+                
             </header>
             <div id="bangumi-list" class="list-box box_style clearfix">
                 <ul v-for="(pack, weekDay) in bangumiGet" v-show="weekDay==weekMark">
-                    
                     <li v-for="(item, index) in pack.seasons">
                         <span class="detail-info" @click="getDetailInfo(item)">详情</span>
                         <a :href="getPlayUrl(item, index)" class="pic" target="new"><img :src="item['img']" alt=""></a>
@@ -122,5 +121,6 @@
     <!-- js 动态元素 -->
     <!-- <script src="{{url_for('static', filename='js/index_dynamic.js')}}"></script> -->
     <script src="../static/js/index_dynamic.js"></script>
+
 </body>
 </html>

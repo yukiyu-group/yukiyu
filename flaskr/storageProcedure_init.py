@@ -2,6 +2,7 @@
 
 import pymysql
 import traceback
+import config
 
 
 # 存储过程
@@ -13,10 +14,10 @@ import traceback
 # insertIntoConduct: 功能和insertIntoCompany相似
 # 由于pymysql模块语法兼容问题，无法通过以下python函数创建存储过程。需通过dbinit.sql脚本创建。
 
-#insertIntoCompany存储过程
+# insertIntoCompany存储过程
 def createStoreProcedureBCompany(db):
-    cursor=db.cursor()
-    sql="""
+    cursor = db.cursor()
+    sql = """
         delimiter $$
         drop procedure if exists insertIntoCompany $$
         create procedure insertIntoCompany(
@@ -56,10 +57,10 @@ def createStoreProcedureBCompany(db):
         traceback.print_exc()
 
 
-#insertIntoConduct存储过程
+# insertIntoConduct存储过程
 def createStoreProcedureBConduct(db):
-    cursor=db.cursor()
-    sql="""
+    cursor = db.cursor()
+    sql = """
         delimiter $$
         drop procedure if exists insertIntoConduct$$
         create procedure insertIntoConduct(in id int,in bangumi_name varchar(50),in new_conduct_name varchar(50))
@@ -97,10 +98,10 @@ def createStoreProcedureBConduct(db):
         traceback.print_exc()
 
 
-#user存储过程
+# user存储过程
 def createStoreProcedureUser(db):
-    cursor= db.cursor()
-    sql="""
+    cursor = db.cursor()
+    sql = """
         delimiter $$
         drop procedure if exists insert_user$$
         create procedure insert_user(
@@ -117,8 +118,14 @@ def createStoreProcedureUser(db):
 
 
 if __name__ == '__main__':
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="root", password="123456",charset='utf8')
-    #存储过程，需要手动创建
+    db = pymysql.connect(
+        host=config.host,
+        port=config.port,
+        db=config.database,
+        user=config.user,
+        password=config.password,
+        charset='utf8')
+    # 存储过程，需要手动创建
     createStoreProcedureBConduct(db)
     createStoreProcedureBCompany(db)
     db.close()

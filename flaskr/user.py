@@ -10,13 +10,21 @@ from flask_login import UserMixin  # 引入用户基类
 from werkzeug.security import check_password_hash
 from databaseCURD import getUserList
 from userManage import createUser
+import config
 
-db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+db = pymysql.connect(
+    host=config.host,
+    port=config.port,
+    db=config.database,
+    user=config.user,
+    password=config.password,
+    charset='utf8')
 
 
 def create_user(user_name, password):
     """创建一个用户"""
     return createUser(user_name, password)
+
 
 def get_user(user_name):
     """根据用户名获得用户记录"""
@@ -29,6 +37,7 @@ def get_user(user_name):
             }
     return None
 
+
 def get_user_by_id(id):
     """根据用户ID获得用户记录"""
     for user in getUserList():
@@ -40,8 +49,10 @@ def get_user_by_id(id):
             }
     return None
 
+
 class User(UserMixin):
     """用户类"""
+
     def __init__(self, user):
         self.username = user.get("name")
         self.password_hash = user.get("password")

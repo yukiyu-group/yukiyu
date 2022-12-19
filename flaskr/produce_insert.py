@@ -5,24 +5,26 @@ import moegirl
 import pymysql
 import merge_info
 import db_bangumi_insert as DBI
+import config
+
 
 def merge_produce_info(db):
-    cursor=db.cursor()
+    cursor = db.cursor()
     try:
         print('try to get produce info\n')
-        produce_list=moegirl.getProduceInfo()
+        produce_list = moegirl.getProduceInfo()
         print('get info successful')
     except:
         print('get info faild')
 
-    for i in produce_list: 
-        print('check ',i)
-        id = DBI.if_exist(db,i["name"])
-        print('id:',id)
-        if id!=0:
-            sql="call insertIntoCompany( %d,'%s','%s')\
-                ;"%\
-            (id,i['name'],i['production'])#如果是库中收录的番，则调用存储过程
+    for i in produce_list:
+        print('check ', i)
+        id = DBI.if_exist(db, i["name"])
+        print('id:', id)
+        if id != 0:
+            sql = "call insertIntoCompany( %d,'%s','%s')\
+                ;" % \
+                  (id, i['name'], i['production'])  # 如果是库中收录的番，则调用存储过程
             try:
                 print('start to execute:')
                 print(sql)
@@ -32,9 +34,9 @@ def merge_produce_info(db):
                 print('insert error!')
                 traceback.print_exc()
 
-            sql="call insertIntoConduct( %d,'%s','%s')\
-                ;"%\
-            (id,i['name'],i['conduct'])#如果是库中收录的番，则调用存储过程
+            sql = "call insertIntoConduct( %d,'%s','%s')\
+                ;" % \
+                  (id, i['name'], i['conduct'])  # 如果是库中收录的番，则调用存储过程
             try:
                 print('start to execute:')
                 print(sql)
@@ -46,8 +48,13 @@ def merge_produce_info(db):
         else:
             print("miss")
 
-if __name__=='__main__':
-    db = pymysql.connect(host="localhost", port=3306, db="yukiyu", user="jhchen", password="123456",charset='utf8')
+
+if __name__ == '__main__':
+    db = pymysql.connect(
+        host=config.host,
+        port=config.port,
+        db=config.database,
+        user=config.user,
+        password=config.password,
+        charset='utf8')
     merge_produce_info(db)
-
-

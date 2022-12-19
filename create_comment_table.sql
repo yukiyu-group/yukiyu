@@ -13,5 +13,5 @@ CREATE TABLE comment(
 
 INSERT INTO comment VALUES (1,'ztzdr','好','2022-01-01 11:11:11',2262592,10);
 INSERT INTO comment VALUES (2,'ztzdr','xing','2022-01-01 11:11:12',2262592,100);
-INSERT INTO comment VALUES (3,'ztzdr','摇曳露营真好看','2022-01-01 11:11:14',2262592,1000);
+INSERT INTO comment VALUES (3,'ztzdr','大魔王不好看','2022-01-01 11:11:14',2262592,1000);
 INSERT INTO comment VALUES (4,'ztzdr','不喜欢沙优的人有难了','2022-01-01 11:11:14',6820713,1000);
